@@ -1,3 +1,12 @@
+/*Changes to every tag type*/
+* {
+  margin: 0;
+  padding: 0;
+  background-color: #0d0d0d;
+  color: #ef5250;
+}
+
+/*Landing page background*/
 #particles-js {
   background-color: #0d0d0d;
   height: 100vh;
