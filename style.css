@@ -6,6 +6,19 @@
   color: #ef5250;
 }
 
+h1, h2 {
+  font-family: 'Space Mono', monospace;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+}
+
+a {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /*Landing page background*/
 #particles-js {
   background-color: #0d0d0d;
