@@ -49,58 +49,60 @@ table {
 }
 
 body {
-  padding-top: 80px;
+	font-family: 'Montserrat', sans-serif;
+	background-color: #0d0d0d;
 }
 
 header {
-  background-color: #070707;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	font-family: 'Space Mono', monospace;
 }
 
 header ul {
-  background-color: #070707;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 }
 
 header ul li {
-  background-color: #070707;
-  position: relative;
-  list-style: none;
+
 }
 
 header ul li a {
-  position: relative;
-  margin: 0 20px;
-  text-decoration: none;
-  background-color: #070707;
-  color: #ef5250;
+
 }
 
-h1, h2 {
+h1 h2 h6 {
   font-family: 'Space Mono', monospace;
+	background-color: #0d0d0d;
 }
 
 p {
-  font-family: 'Montserrat', sans-serif;
+	backround-color: #0d0d0d;
   color: #fff;
 }
 
 a {
-  font-family: 'Montserrat', sans-serif;
+
 }
 
 a:hover {
   color: #fff;
+}
+
+.landing {
+	position: absolute;
+	top: 40vh; /*Mess around with this to vertically center at end*/
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 50%;
+	height: 0; /*This seems to work*/
+}
+
+/*Might need to separate h1 and p to fix margin and text height*/
+/*Need to figure out how to adjust background color and padding*/
+.landing h1 p {
+	background-color: rgba(9, 9, 9, 0.75);
+	padding: 10px 10px 10px 10px;
 }
 
 /*Landing page background*/
