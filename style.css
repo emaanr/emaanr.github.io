@@ -103,6 +103,8 @@ a:hover {
 	background-color: rgba(9, 9, 9, 0.75);
 	padding: 10px 10px 10px 10px;
 	text-align: center;
+	font-family: 'Space Mono', monospace;
+	font-size: 20px;
 }
 
 /*Landing page text*/
