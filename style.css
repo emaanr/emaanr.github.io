@@ -71,7 +71,6 @@ header ul li a {
 
 h1 h2 h6 {
   font-family: 'Space Mono', monospace;
-	background-color: #0d0d0d;
 }
 
 p {
@@ -87,22 +86,39 @@ a:hover {
   color: #fff;
 }
 
+/*Landing page content starts here*/
 .landing {
 	position: absolute;
-	top: 40vh; /*Mess around with this to vertically center at end*/
+	top: 10vh; /*Mess around with this to vertically center at end*/
 	left: 0;
 	right: 0;
 	bottom: 0;
 	margin: auto;
-	width: 50%;
+	width: 60%;
 	height: 0; /*This seems to work*/
 }
 
-/*Might need to separate h1 and p to fix margin and text height*/
-/*Need to figure out how to adjust background color and padding*/
-.landing h1 p {
+/*Landing page title*/
+.landing h1 {
 	background-color: rgba(9, 9, 9, 0.75);
 	padding: 10px 10px 10px 10px;
+	text-align: center;
+}
+
+/*Landing page text*/
+.landing p {
+	background-color: rgba(9, 9, 9, 0.75);
+	padding: 0px 10px 10px 10px;
+	text-align: center;
+}
+
+.portrait {
+	width: 150px;
+	border-radius: 50%;
+	padding-bottom: 10px;
+	display: block;
+  margin: 0 auto;
+
 }
 
 /*Landing page background*/
