@@ -44,7 +44,6 @@ table {
 
 /*MY CODE*/
 * {
-  background-color: #0d0d0d;
   color: #ef5250;
 }
 
@@ -53,26 +52,92 @@ body {
 	background-color: #0d0d0d;
 }
 
+/*Header*/
 header {
 	font-family: 'Space Mono', monospace;
+	background-color: #0a0a0a;
+	width: 100%;
+	z-index: 3;
+	position: fixed;
 }
 
 header ul {
-
-}
-
-header ul li {
-
+	list-style: none;
+	overflow: hidden;
 }
 
 header ul li a {
-
+	display: block;
+	padding: 18px;
 }
 
-.logo {
+header ul li:hover {
+	background-color: #0d0d0d;
+	border: .25px solid #ef5250;
+}
+
+header .logo {
 	width: 70px;
 	height: 50px;
-	padding: 7px 0 0px 0;
+	padding: 7px 0 8px 0;
+	float: left;
+}
+
+/*Header Menu*/
+header .menu {
+	clear: both;
+	max-height: 0;
+	transition: max-height 0.2s ease-out;
+}
+
+header .menu-icon {
+	padding: 28px 15px;
+	position: relative;
+	float: right;
+	cursor: pointer;
+}
+
+/*Burger Middle Bar*/
+header .menu-icon .nav-icon {
+	background: #ff4846;
+	display: block;
+	height: 8px;
+	width: 50px;
+	float: right;
+	position: relative;
+	transition: background .2s ease-out;
+}
+
+/*Burger Bottom Bar*/
+header .menu-icon .nav-icon:before {
+	background: #ff4846;
+	content: "";
+	display: block;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	transition: all .2s ease-out;
+	top: 15px;
+}
+
+/*Burger Top Bar*/
+header .menu-icon .nav-icon:after {
+	background: #ff4846;
+	content: "";
+	display: block;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	transition: all .2s ease-out;
+	top: -15.5px;
+}
+
+header .menu-btn {
+	display: none;
+}
+
+header .menu-btn:checked ~ .nav {
+	max-height: 500px;
 }
 
 /*Sections*/
@@ -96,6 +161,7 @@ p {
 }
 
 a {
+	transition: all 0.25s ease 0s;
 	text-decoration: none;
 	font-size: 18px;
 }
@@ -107,12 +173,12 @@ a:hover {
 /*Landing page content starts here*/
 .landing {
 	position: absolute;
-	top: 20vh; /*Mess around with this to vertically center at end*/
+	top: 0; /*Mess around with this to vertically center at end*/
 	left: 0;
 	right: 0;
 	bottom: 0;
 	margin: auto;
-	width: 40%;
+	width: 75%;
 	height: 0; /*This seems to work*/
 }
 
@@ -122,7 +188,7 @@ a:hover {
 	padding: 8px 10px 5px 10px;
 	text-align: center;
 	font-family: 'Space Mono', monospace;
-	font-size: 35px;
+	font-size: 20px;
 	font-weight: bold;
 }
 
@@ -130,7 +196,8 @@ a:hover {
 .landing p {
 	background-color: rgba(9, 9, 9, 0.75);
 	padding: 0px 10px 12px 10px;
-	text-align: center;
+	text-align: justify;
+	font-size: 15px;
 }
 
 .portrait {
@@ -145,4 +212,45 @@ a:hover {
 #particles-js {
   background-color: #0d0d0d;
   height: 100vh;
+}
+
+/*Tablet and greater resolutions*/
+@media (min-width: 48em) {
+
+	/*Landing page content starts here*/
+	.landing {
+		position: absolute;
+		top: 20vh; /*Mess around with this to vertically center at end*/
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		width: 40%;
+		height: 0; /*This seems to work*/
+	}
+
+	/*Landing page title*/
+	.landing h1 {
+		background-color: rgba(9, 9, 9, 0.75);
+		padding: 8px 10px 5px 10px;
+		text-align: center;
+		font-family: 'Space Mono', monospace;
+		font-size: 35px;
+		font-weight: bold;
+	}
+
+	/*Landing page text*/
+	.landing p {
+		background-color: rgba(9, 9, 9, 0.75);
+		padding: 0px 10px 12px 10px;
+		text-align: center;
+	}
+
+	.portrait {
+		width: 150px;
+		border-radius: 50%;
+		padding-bottom: 10px;
+		display: block;
+	  margin: 0 auto;
+	}
 }
