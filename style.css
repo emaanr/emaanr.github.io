@@ -140,6 +140,24 @@ header .menu-btn:checked ~ .menu {
 	max-height: 500px;
 }
 
+header .menu-btn:checked ~ .menu-icon .nav-icon {
+	background: transparent;
+}
+
+/*Burger Bottom Bar*/
+header .menu-btn:checked ~ .menu-icon .nav-icon:before {
+	transform: rotate(-45deg);
+	top: 0;
+}
+
+/*Burger Top Bar*/
+header .menu-btn:checked ~ .menu-icon .nav-icon:after {
+	transform: rotate(45deg);
+	top: 0;
+}
+
+
+
 /*Sections*/
 h2 {
   font-family: 'Space Mono', monospace;
