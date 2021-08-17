@@ -176,7 +176,7 @@ a:hover {
 	top: 0; /*Mess around with this to vertically center at end*/
 	left: 0;
 	right: 0;
-	bottom: 0;
+	bottom: 250px;
 	margin: auto;
 	width: 75%;
 	height: 0; /*This seems to work*/
