@@ -86,7 +86,7 @@ header .logo {
 /*Header Menu*/
 header .menu {
 	clear: both;
-	max-height: 0;
+	max-height: 0px;
 	transition: max-height 0.2s ease-out;
 }
 
@@ -136,7 +136,7 @@ header .menu-btn {
 	display: none;
 }
 
-header .menu-btn:checked ~ .nav {
+header .menu-btn:checked ~ .menu {
 	max-height: 500px;
 }
 
