@@ -69,6 +69,7 @@ header ul {
 header ul li a {
 	display: block;
 	padding: 18px;
+	text-align: center;
 }
 
 header ul li:hover {
@@ -155,8 +156,6 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 	transform: rotate(45deg);
 	top: 0;
 }
-
-
 
 /*Sections*/
 h2 {
