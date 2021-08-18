@@ -160,13 +160,15 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 /*Sections*/
 h2 {
   font-family: 'Space Mono', monospace;
-	font-size: 25px;
+	font-size: 19px;
+	font-weight: bold;
+	letter-spacing: 0.05em;
 }
 
 /*Comments*/
 h6 {
 	font-family: 'Space Mono', monospace;
-	font-size: 22px;
+	font-size: 19px;
 	color: #fff;
 	opacity: 25%;
 }
@@ -180,11 +182,17 @@ p {
 a {
 	transition: all 0.25s ease 0s;
 	text-decoration: none;
-	font-size: 18px;
+	font-size: 19px;
+	font-weight: bold;
+	letter-spacing: 0.05em;
 }
 
 a:hover {
   color: #fff;
+}
+
+.section {
+	padding: 8px 8px 0px 8px;
 }
 
 /*Landing page content starts here*/
@@ -229,7 +237,9 @@ a:hover {
 #particles-js {
   background-color: #0d0d0d;
   height: 100vh;
+	border-bottom: 1.25px solid rgba(9, 9, 9, 0.75);
 }
+
 
 /*Tablet and greater resolutions*/
 @media (min-width: 1024px) {
