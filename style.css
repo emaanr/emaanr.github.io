@@ -199,10 +199,6 @@ a:hover {
 	line-height: 2;
 }
 
-.section p {
-	padding: 0 13px;
-}
-
 footer {
 	background-color: #0a0a0a;
 	font-size: 20px;
@@ -219,8 +215,8 @@ footer {
   display: inline-flex;
 }
 
-.icons a {
-  margin: 0px 8px;
+.icons a i {
+  margin: 0px 6px;
 }
 
 /*Landing page content starts here*/
