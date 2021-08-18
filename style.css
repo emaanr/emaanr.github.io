@@ -235,40 +235,39 @@ a:hover {
 /*Tablet and greater resolutions*/
 @media (min-width: 48em) {
 
+	header li {
+		float: left;
+	}
+
+	header ul li:hover {
+		background-color: transparent;
+		border: none;
+	}
+
+	header .menu {
+		clear: none;
+		float: right;
+		max-height: none;
+	}
+
+	header .menu-icon {
+		display: none;
+	}
+
 	/*Landing page content starts here*/
 	.landing {
-		position: absolute;
-		top: 20vh; /*Mess around with this to vertically center at end*/
-		left: 0;
-		right: 0;
-		bottom: 0;
-		margin: auto;
+		bottom: 40vh;
 		width: 40%;
-		height: 0; /*This seems to work*/
 	}
 
 	/*Landing page title*/
 	.landing h1 {
-		background-color: rgba(9, 9, 9, 0.75);
-		padding: 8px 10px 5px 10px;
 		text-align: center;
-		font-family: 'Space Mono', monospace;
 		font-size: 35px;
-		font-weight: bold;
 	}
 
 	/*Landing page text*/
 	.landing p {
-		background-color: rgba(9, 9, 9, 0.75);
-		padding: 0px 10px 12px 10px;
 		text-align: center;
-	}
-
-	.portrait {
-		width: 150px;
-		border-radius: 50%;
-		padding-bottom: 10px;
-		display: block;
-	  margin: 0 auto;
 	}
 }
