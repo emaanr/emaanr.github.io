@@ -201,6 +201,7 @@ a:hover {
 
 .section p {
 	padding-left: 13px;
+	padding-right: 2px;
 }
 
 footer {
@@ -220,7 +221,7 @@ footer {
 }
 
 .icons a i {
-  margin: 0px 12px;
+  margin: 0px 10px;
 }
 
 /*Landing page content starts here*/
