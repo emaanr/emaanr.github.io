@@ -222,17 +222,24 @@ a:hover {
 }
 
 .work-item p {
-	padding: 0px;
+	font-family: 'Montserrat', sans-serif;
+	padding: 12px 0px 4px 0px;
+	font-size: 13px;
 }
 
 .item-container {
-	padding: 7px;
+	padding: 7px 0px 7px 7px;
 }
 
 .item-content {
 	padding: 20px 20px 26px 24px;
 	background-color: #ef5250;
 	border-radius: 15px;
+}
+
+.skill-list {
+	color: #000;
+	font-size: 14px;
 }
 
 footer {
