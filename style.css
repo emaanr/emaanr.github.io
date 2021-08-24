@@ -52,6 +52,54 @@ body {
 	background-color: #0d0d0d;
 }
 
+/*Sections*/
+h2 {
+  font-family: 'Space Mono', monospace;
+	font-size: 19px;
+	font-weight: bold;
+	letter-spacing: 0.05em;
+}
+
+/*Comments*/
+h6 {
+	font-family: 'Space Mono', monospace;
+	font-size: 19px;
+	color: #fff;
+	opacity: 25%;
+}
+
+/*Work Item Titles*/
+h3 {
+	font-family: 'Space Mono', monospace;
+	font-size: 19px;
+	font-weight: bold;
+	color: #000;
+}
+
+/*Skills Subsection Titles*/
+h4 {
+
+}
+
+p, ul, li {
+	backround-color: #0d0d0d;
+  color: #fff;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+a {
+	transition: all 0.25s ease 0s;
+	text-decoration: none;
+	font-size: 19px;
+	font-weight: bold;
+	letter-spacing: 0.05em;
+}
+
+a:hover {
+  color: #fff;
+}
+
 /*Header*/
 header {
 	font-family: 'Space Mono', monospace;
@@ -157,49 +205,6 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 	top: 0;
 }
 
-/*Sections*/
-h2 {
-  font-family: 'Space Mono', monospace;
-	font-size: 19px;
-	font-weight: bold;
-	letter-spacing: 0.05em;
-}
-
-/*Comments*/
-h6 {
-	font-family: 'Space Mono', monospace;
-	font-size: 19px;
-	color: #fff;
-	opacity: 25%;
-}
-
-/*Work Item Titles*/
-h3 {
-	font-family: 'Space Mono', monospace;
-	font-size: 19px;
-	font-weight: bold;
-	color: #000;
-}
-
-p {
-	backround-color: #0d0d0d;
-  color: #fff;
-	font-size: 15px;
-	font-weight: normal;
-}
-
-a {
-	transition: all 0.25s ease 0s;
-	text-decoration: none;
-	font-size: 19px;
-	font-weight: bold;
-	letter-spacing: 0.05em;
-}
-
-a:hover {
-  color: #fff;
-}
-
 .section {
 	padding: 8px 8px 0px 8px;
 }
@@ -208,7 +213,7 @@ a:hover {
 	line-height: 2;
 }
 
-.section p {
+.section p, h4, ul {
 	padding-left: 13px;
 	padding-right: 2px;
 }
