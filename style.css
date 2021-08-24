@@ -173,10 +173,19 @@ h6 {
 	opacity: 25%;
 }
 
+/*Work Item Titles*/
+h3 {
+	font-family: 'Space Mono', monospace;
+	font-size: 19px;
+	font-weight: bold;
+	color: #000;
+}
+
 p {
 	backround-color: #0d0d0d;
   color: #fff;
 	font-size: 15px;
+	font-weight: normal;
 }
 
 a {
@@ -202,6 +211,28 @@ a:hover {
 .section p {
 	padding-left: 13px;
 	padding-right: 2px;
+}
+
+/*Work items start here*/
+.work-item {
+	display: grid;
+	gap: 20px
+	grid-template-columns: repeat(auto-fit);
+	justify-content: center;
+}
+
+.work-item p {
+	padding: 0px;
+}
+
+.item-container {
+	padding: 7px;
+}
+
+.item-content {
+	padding: 20px 20px 26px 24px;
+	background-color: #ef5250;
+	border-radius: 15px;
 }
 
 footer {
@@ -270,9 +301,8 @@ footer {
 #particles-js {
   background-color: #0d0d0d;
   height: 100vh;
-	border-bottom: 1.25px solid rgba(9, 9, 9, 0.75);
+	border-bottom: 1.5px solid rgba(9, 9, 9, 0.75);
 }
-
 
 /*Tablet and greater resolutions*/
 @media (min-width: 1024px) {
