@@ -219,14 +219,16 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 }
 
 /*Work items start here*/
-.work-item {
+/*Work-items wrapper class*/
+.work-items {
 	display: grid;
-	gap: 20px
-	grid-template-columns: repeat(auto-fit);
-	justify-content: center;
+	gap: 10px;
+	grid-template-columns: 100%;
+	grid-auto-rows: 250px;
+	padding: 0px 13px;
 }
 
-.work-item p {
+.work-items p {
 	font-family: 'Montserrat', sans-serif;
 	padding: 12px 0px 4px 0px;
 	font-size: 13px;
@@ -234,12 +236,12 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 
 .item-container {
 	padding: 7px 0px 7px 7px;
+	background-color: #ef5250;
+	border-radius: 15px;
 }
 
 .item-content {
 	padding: 20px 20px 26px 24px;
-	background-color: #ef5250;
-	border-radius: 15px;
 }
 
 .skill-list {
@@ -352,5 +354,10 @@ footer {
 	/*Landing page text*/
 	.landing p {
 		text-align: center;
+	}
+
+	/*Work-items wrapper class*/
+	.work-items {
+		grid-template-columns: repeat(2, 1fr);
 	}
 }
