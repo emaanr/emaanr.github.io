@@ -78,7 +78,8 @@ h3 {
 
 /*Skills Subsection Titles*/
 h4 {
-
+	font-size: 16px;
+	font-weight: bold;
 }
 
 p, ul, li {
@@ -247,6 +248,17 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 .skill-list {
 	color: #000;
 	font-size: 14px;
+}
+
+/*Skills*/
+.skills-wrapper {
+	display: grid;
+	grid-gap: 10px;
+}
+
+.coming-soon {
+	height: 80px;
+	padding-top: 5px;
 }
 
 footer {
