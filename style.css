@@ -224,7 +224,7 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 	display: grid;
 	gap: 10px;
 	grid-template-columns: 100%;
-	grid-auto-rows: 250px;
+	grid-auto-rows: 300px;
 	padding: 0px 13px;
 }
 
