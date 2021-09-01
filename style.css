@@ -227,7 +227,7 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 /*Work-items wrapper class*/
 .work-items {
 	display: grid;
-	gap: 10px;
+	gap: 15px;
 	grid-template-columns: 100%;
 	grid-auto-rows: 300px;
 	padding: 0px 13px;
