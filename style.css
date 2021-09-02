@@ -73,7 +73,7 @@ button {
 	font-size: 15px;
 	font-weight: bold;
 	outline: none;
-	border: 1px solid #ef5250;
+	border: 2px solid #ef5250;
 	position: relative;
 	display: inline-block;
 	z-index: 1;
@@ -94,7 +94,7 @@ button:before {
 	opacity: 0;
 	content: "";
 	background-color: #ef5250;
-	border-radius: 8px;
+	border-radius: 7px;
 }
 
 button:hover:before {
