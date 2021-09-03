@@ -167,6 +167,7 @@ header {
 header ul {
 	list-style: none;
 	overflow: hidden;
+	padding: 0px;
 }
 
 header ul li a {
