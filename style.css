@@ -264,7 +264,7 @@ header .menu-btn:checked ~ .menu-icon .nav-icon:after {
 
 .section {
 	padding: 20px 10px 0px 10px;
-	border-bottom: 2px solid rgba(8, 8, 8, 0.75);
+	border-bottom: .5px solid #ef5250;
 }
 
 .section h2 {
@@ -331,7 +331,7 @@ footer {
 }
 
 .copyright {
-	font-size: 15px;
+	font-size: 14px;
 	font-weigh: bold;
 }
 
@@ -446,6 +446,10 @@ footer {
 	.icons a i {
 	  margin: 0px 15px;
 		font-size: 20px;
+	}
+
+	.copyright {
+		font-size: 17px;
 	}
 
 	.skills-wrapper {
