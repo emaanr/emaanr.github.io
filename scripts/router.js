@@ -1,17 +1,26 @@
-export const routes = {
-  "/": "pages/home.html",
-  "/makerspace": "pages/makerspace.html",
-  "/experience": "pages/experience.html",
-  "/blog": "pages/blog.html",
-  "/notes": "pages/notes"
+const route = (event) => {
+  event = event || window.event;
+  event.preventDefault();
+  window.history.pushState({}, "", event.target.href);
+  routing();
 };
 
-export async function router() {
-  const path = location.hash.slice(1) || "/";
-  const page = routes[path] || routes["/"];
-  const app = document.getElementById("app");
-  if (!app) return;
+const routes = {
+  404: "404.html",
+  "/": "/pages/home.html",
+  "/makerspace": "/pages/makerspace.html",
+  "/experience": "/pages/experience.html",
+  "/blog": "/pages/blog.html",
+  "/notes": "/pages/notes.html"
+};
 
-  const result = await fetch(page);
-  app.innerHTML = await result.text();
-}
+const routing = async () => {
+  const path = window.location.pathname;
+  const route = routes[path] || routes[404];
+  const html = await fetch(route).then((data) => data.text());
+  document.querySelector("main").innerHTML = html;
+};
+
+window.onpopstate = routing;
+window.route = route;
+routing();

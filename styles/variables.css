@@ -1,3 +1,16 @@
 :root {
   --clr-accent: #ef5250;
+
+  --clr-light-100: #f5f3f1;
+  --clr-light-200: #f1eeeb;
+  --clr-light-300: #ebe6e2;
+  --clr-dark-100: #14191d;
+  --clr-dark-200: #0e1114;
+  --clr-dark-300: #0a0c0e;
+
+  --clr-bg: light-dark(var(--clr-light-200), var(--clr-dark-200));
+
+  --height-header: 60px;
+  --height-footer: 30px;
+  --height-main: calc(100vh - var(--height-header) - var(--height-footer));
 }

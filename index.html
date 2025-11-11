@@ -13,11 +13,11 @@
 <body>
   <header>
     <nav>
-      <a href="#/" data-route="/">/home</a>
-      <a href="#/makerspace" data-route="/makerspace">/makerspace</a>
-      <a href="#/experience" data-route="/experience">/experience</a>
-      <a href="#/blog" data-route="/experience">/blog</a>
-      <a href="#/notes" data-route="/experience">/notes</a>
+      <a href="/" onclick="route()">/home</a>
+      <a href="/makerspace" onclick="route()">/makerspace</a>
+      <a href="/experience" onclick="route()">/experience</a>
+      <a href="/blog" onclick="route()">/blog</a>
+      <a href="/notes" onclick="route()">/notes</a>
       <button id="theme-toggle">
         <div id="theme-icons">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" height="32" width="32" fill="currentColor"
@@ -38,15 +38,10 @@
           </svg>
         </div>
       </button>
-      <!-- <select id="theme-toggle">
-          <option id="theme-system">System</option>
-          <option id="theme-light">Light</option>
-          <option id="theme-dark">Dark</option>
-        </select> -->
     </nav>
   </header>
 
-  <main id="app"></main>
+  <main></main>
 
   <footer>
     <p>© 2025 Emaan Rana</p>
@@ -71,6 +66,7 @@
   </footer>
 
   <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="scripts/router.js"></script>
   <script type="module" src="scripts/theme.js"></script>
 </body>
 
