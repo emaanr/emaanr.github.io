@@ -1,0 +1,33 @@
+@import url('variables.css');
+
+:root {
+  color-scheme: light dark;
+}
+
+:root:has(#theme-icon_light[style*="display: inline"]) {
+  color-scheme: light;
+}
+
+:root:has(#theme-icon_dark[style*="display: inline"]) {
+  color-scheme: dark;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 1em;
+  padding: 1em;
+}
+
+nav>a {
+  text-decoration: none;
+  font-size: 24px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3em 0.5em 0 0.5em;
+  background-color: var(--clr-accent);
+}
