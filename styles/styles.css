@@ -12,15 +12,37 @@
   color-scheme: dark;
 }
 
-html {
+* {
+  font-family: "Figtree", sans-serif;
+}
+
+body {
   background-color: var(--clr-bg);
+  background-image:
+    linear-gradient(to right, var(--clr-bg-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--clr-bg-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+a {
+  color: var(--clr-accent);
+}
+
+a:hover {
+  color: #e71b24;
 }
 
 main {
+  background: var(--clr-main);
   height: var(--height-main);
+  width: var(--width-main);
+  padding: 1.5em 1.75em;
+  margin: 0 auto;
 }
 
 header {
+  background: var(--clr-header);
+  border-bottom: 3px solid var(--clr-header-accent);
   height: var(--height-header);
 }
 
@@ -30,17 +52,26 @@ nav {
   justify-content: right;
   gap: 1em;
   padding: 1em;
-}
 
-nav>a {
-  text-decoration: none;
-  font-size: 24px;
+  a {
+    color: var(--clr-accent);
+    text-decoration: none;
+    font-size: 24px;
+  }
 }
 
 footer {
   height: var(--height-footer);
   display: flex;
   justify-content: space-between;
-  padding: 0.3em 0.3em 0 0.3em;
+  padding: 0.4em 0.3em 0 0.3em;
   background-color: var(--clr-accent);
+
+  a {
+    color: light-dark(black, white);
+  }
+
+  a:hover {
+    color: light-dark(white, black);
+  }
 }

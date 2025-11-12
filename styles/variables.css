@@ -1,16 +1,25 @@
 :root {
+  /* --clr-light-000: #;
+  --clr-light-050: #;
+  --clr-light-100: #;
+  --clr-light-150: #;
+
+  --clr-dark-000: #;
+  --clr-dark-050: #;
+  --clr-dark-100: #;
+  --clr-dark-150: #; */
+
   --clr-accent: #ef5250;
-
-  --clr-light-100: #f5f3f1;
-  --clr-light-200: #f1eeeb;
-  --clr-light-300: #ebe6e2;
-  --clr-dark-100: #14191d;
-  --clr-dark-200: #0e1114;
-  --clr-dark-300: #0a0c0e;
-
-  --clr-bg: light-dark(var(--clr-light-200), var(--clr-dark-200));
+  --clr-header: light-dark(var(--clr-light-), var(--clr-dark-));
+  --clr-header-accent: light-dark(var(--clr-light-), var(--clr-dark-));
+  --clr-header-text: light-dark(var(--clr-light-), var(--clr-dark-));
+  --clr-main: light-dark(var(--clr-light-), var(--clr-dark-));
+  --clr-bg: light-dark(var(--clr-light-), var(--clr-dark-));
+  --clr-bg-grid: light-dark(var(--clr-light-), var(--clr-dark-));
 
   --height-header: 60px;
   --height-footer: 30px;
   --height-main: calc(100vh - var(--height-header) - var(--height-footer));
+  --width-main: 900px;
+  /* Eventually use a clamp or something*/
 }
