@@ -9,13 +9,20 @@
   --clr-dark-100: #;
   --clr-dark-150: #; */
 
+  --clr-light-bg: white;
+  --clr-dark-bg: black;
+
+  --clr-light-font: black;
+  --clr-dark-font: white;
+
   --clr-accent: #ef5250;
   --clr-header: light-dark(var(--clr-light-), var(--clr-dark-));
   --clr-header-accent: light-dark(var(--clr-light-), var(--clr-dark-));
   --clr-header-text: light-dark(var(--clr-light-), var(--clr-dark-));
   --clr-main: light-dark(var(--clr-light-), var(--clr-dark-));
-  --clr-bg: light-dark(var(--clr-light-), var(--clr-dark-));
+  --clr-bg: light-dark(var(--clr-light-bg), var(--clr-dark-bg));
   --clr-bg-grid: light-dark(var(--clr-light-), var(--clr-dark-));
+  --clr-font: light-dark(var(--clr-light-font), var(--clr-dark-font));
 
   --height-header: 60px;
   --height-footer: 30px;
