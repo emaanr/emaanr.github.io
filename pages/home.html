@@ -5,70 +5,95 @@
   </div>
   <div id="home-content">
     <div id="home-intro">
-      <p>I decided to study Computer Science on a whim while listening to the <a target="_blank" href="https://www.youtube.com/watch?v=Bd61A8egZX4"><i>Kingdom Hearts 2</i> Title Screen</a> right before graduating from high school, and now I work as a Software Engineer.</p>
+      <p>I decided to study Computer Science on a whim while listening to the <a target="_blank" href="https://www.youtube.com/watch?v=Bd61A8egZX4" class="muted"><i>Kingdom Hearts 2</i> Title Screen</a> right before graduating from high school, and now I work as a Software Engineer.</p>
     </div>
-    <!-- <div id="home-timeline">
+    <div id="home-timeline">
       <h5 class="home-subheading"><span class="warble-target">Timeline</span></h5>
       <p>So far:</p>
       <ul id="home-timeline-bullets">
         <li class="home-timeline-bullet">
           <div class="home-timeline-item">
-            <div class="home-timeline-item_btn" onclick="openTimeline(this)">
-              <button><span></span></button>
+            <div class="home-timeline-item_segment">
+              <div class="home-timeline-item_btn" onclick="openTimeline(this)">
+                <button><span></span></button>
+              </div>
             </div>
             <div class="home-timeline-item_content">
               <h5 class="home-timeline-item_content_heading">Northern Virginia Community College</h5>
               <div class="home-timeline-item_content_description" style="display: none;">
-                <p>Nothing here yet.</p>
+                <p class="muted">A.S. Engineering <strong>|</strong> 2018/08 → 2019/12</p>
+                <ul class="home-bullets">
+                  <li><span class="home-bullet">✱ </span>First time coding.</li>
+                  <li><span class="home-bullet">✱ </span>Realized I liked CS, but also Math and Physics.</li>
+                </ul>
               </div>
             </div>
           </div>
         </li>
         <li class="home-timeline-bullet">
           <div class="home-timeline-item">
-            <div class="home-timeline-item_btn" onclick="openTimeline(this)">
-              <button><span></span></button>
+            <div class="home-timeline-item_segment">
+              <div class="home-timeline-item_btn" onclick="openTimeline(this)">
+                <button><span></span></button>
+              </div>
             </div>
             <div class="home-timeline-item_content">
               <h5 class="home-timeline-item_content_heading">Virginia Tech</h5>
               <div class="home-timeline-item_content_description" style="display: none;">
-                <p>Nothing here yet.</p>
+                <p class="muted">B.S. Computer Science <strong>|</strong> 2020/08 → 2022/12</p>
+                <ul class="home-bullets">
+                  <li><span class="home-bullet">✱ </span>A lot more CS than during community college.</li>
+                  <li><span class="home-bullet">✱ </span>Favorite classes were: 
+                    <ul class="home-bullets_sub">
+                      <li><span class="home-bullet">✱ </span><i>Computer Organization II</i><span class="muted" style="display: none;">, in <i>MIPS32 Architecture</i>.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+                      <li><span class="home-bullet">✱ </span><i>Computer Music & Multimedia</i><span class="muted" style="display: none;">, using <i>CSound</i> and <i>Max MSP</i>.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+                      <li><span class="home-bullet">✱ </span><i>DSA Analysis</i><span class="muted" style="display: none;">, best office hours and collaborative sessions.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+                      <li><span class="home-bullet">✱ </span><i>Computer Systems</i><span class="muted" style="display: none;">, was a cool course in general, especially the projects.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </li>
         <li class="home-timeline-bullet">
           <div class="home-timeline-item">
-            <div class="home-timeline-item_btn" onclick="openTimeline(this)">
-              <button><span></span></button>
+            <div> <!-- home-timeline-item_segment -->
+              <div class="home-timeline-item_btn" onclick="openTimeline(this)">
+                <button><span></span></button>
+              </div>
             </div>
             <div class="home-timeline-item_content">
               <h5 class="home-timeline-item_content_heading">Peraton</h5>
               <div class="home-timeline-item_content_description" style="display: none;">
-                <p>Nothing here yet.</p>
+                <p class="muted">Software Engineer <strong>|</strong> 2023/03 → Present</p>
+                <ul class="home-bullets">
+                  <li><span class="home-bullet">✱ </span>Web scraping in Python.</li>
+                  <li><span class="home-bullet">✱ </span>Full Stack Dev with primarily React. Django, and AWS.</li>
+                </ul>
               </div>
             </div>
           </div>
         </li>
       </ul>
-    </div> -->
+    </div>
     <div id ="home-current_interests">
       <h5 class="home-subheading"><span class="warble-target">Current Interests</span></h5>
       <p>I like a lot of things, but these are my main interests right now:</p>
       <ul class="home-bullets">
-        <li><span class="home-bullet">✱ </span><span>Programming</span><span class="more" style="display: none;">, currently doing more Linux, Embedded, Networking, and Web Dev Personal Projects.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
-        <li><span class="home-bullet">✱ </span><span>Making</span><span class="more" style="display: none;">, I use this as an umbrella term to encompass a lot, see <a href="/projects" onclick="route()">Projects</a>.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
-        <li><span class="home-bullet">✱ </span><span>Exercise</span><span class="more" style="display: none;">, mainly Resistance Training.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><&nbsp;&nbsp;<span style="color: black" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';">></span></button></span></li>
-        <li><span class="home-bullet">✱ </span><span><span>Gaming</span><span class="more" style="display: none;">, mostly with friends. Right now I'm into playing <i>The Finals</i>.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+        <li><span class="home-bullet">✱ </span><span>Programming</span><span class="muted" style="display: none;">, currently doing more Linux, Embedded, Networking, and Web Dev Personal Projects.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+        <li><span class="home-bullet">✱ </span><span>Making</span><span class="muted" style="display: none;">, I use this as an umbrella term to encompass a lot, see <a href="/projects" onclick="route()">Projects</a>.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+        <li><span class="home-bullet">✱ </span><span>Exercise</span><span class="muted" style="display: none;">, mainly Resistance Training.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+        <li><span class="home-bullet">✱ </span><span><span>Gaming</span><span class="muted" style="display: none;">, mostly just with friends these days. Right now I'm into playing <i>The Finals</i>.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
       </ul>
     </div>
     <div id="home-other_interests">
       <h5 class="home-subheading"><span class="warble-target">Other Interests</span></h5>
       <p>Some other notable interests of mine:</p>
       <ul class="home-bullets">
-        <li><span class="home-bullet">✱ </span><span><span>Go</span><span class="more" style="display: none;">, also known as Baduk in Korea or Weiqi in China.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
-        <li><span class="home-bullet">✱ </span><span><span>Music</span><span class="more" style="display: none;">, listening, learning, dabbling.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
-        <li><span class="home-bullet">✱ </span><span><span>Art</span><span class="more" style="display: none;">, all kinds, but especially: programmatic, photography, hand-drawn, and pottery.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+        <li><span class="home-bullet">✱ </span><span><span>Go</span><span class="muted" style="display: none;">, also known as Baduk in Korea or Weiqi in China.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+        <li><span class="home-bullet">✱ </span><span><span>Music</span><span class="muted" style="display: none;">, listening, learning, dabbling.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
+        <li><span class="home-bullet">✱ </span><span><span>Art</span><span class="muted" style="display: none;">, all kinds, but especially: programmatic, photography, hand-drawn, and pottery.</span><button class="more_button" onclick="this.style.display='none'; this.previousElementSibling.style.display='inline';"><span style="color: white"><</span>&nbsp;&nbsp;<span style="color: black">></span></button></span></li>
       </ul>
     </div>
     <div id="home-outro">

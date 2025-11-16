@@ -22,6 +22,11 @@
   padding: 0.25em 0 0 1em;
 }
 
+.home-bullets_sub {
+  color: #7f7f7f;
+  padding-left: 1em;
+}
+
 .home-bullet {
   color: var(--clr-accent);
 }
@@ -32,7 +37,11 @@
   padding-top: 0.75em;
 }
 
-.more {
+a.muted:hover {
+  color: #6f6f6f
+}
+
+.muted {
   color: #7f7f7f;
 }
 
@@ -47,6 +56,7 @@
   font-size: 10px;
   padding: 0 0.25em;
   margin: 0 0.25em;
+  font-weight: 800;
 }
 
 .more_button:hover {
@@ -56,35 +66,41 @@
 
 .home-timeline-item {
   display: flex;
+  position: relative;
+}
+
+.home-timeline-item_segment::after {
+  content: '';
+  position: absolute;
+  left: 1.5em;
+  width: 2px;
+  height: calc(100% - 17px);
+  background-color: var(--clr-font);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.home-timeline-item_segment.open::after {
+  background-color: var(--clr-accent);
 }
 
 .home-timeline-item_btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 17px;
+  width: 18px;
   margin: 1em 0.5em 0 1em;
-  height: 17px;
+  height: 18px;
   border-radius: 50%;
   border: 2px solid var(--clr-font);
   transition: border 0.3s ease-in-out;
-}
-
-.home-timeline-item_btn>button>span {
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--clr-font);
-  transition: width 0.2s ease-in-out, height 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 .home-timeline-item_btn:hover {
   border: 2px solid var(--clr-accent);
 
   button>span {
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     background-color: var(--clr-accent);
   }
 }
@@ -100,6 +116,15 @@
   }
 }
 
+.home-timeline-item_btn>button>span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--clr-font);
+  transition: width 0.2s ease-in-out, height 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
 .home-timeline-item_btn.open {
   border-color: var(--clr-accent);
   pointer-events: none;
@@ -107,24 +132,18 @@
 }
 
 .home-timeline-item_btn.open>button>span {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background-color: var(--clr-accent);
 }
 
 .home-timeline-item_content {
   display: absolute;
-  padding: 1em 0 0.5em 0;
+  padding-top: 1em;
 }
 
 .home-timeline-item_content_description {
   display: flex;
   flex-direction: column;
   font-size: 12px;
-
-  .home-timeline-item_content_description_dates {
-    >span {
-      color: var(--clr-accent);
-    }
-  }
 }

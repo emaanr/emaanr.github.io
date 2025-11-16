@@ -1,6 +1,11 @@
 function openTimeline(button) {
+  parent = button.parentElement.parentElement
   button.classList.add('open');
-  const description = button.parentElement.querySelector('.home-timeline-item_content_description');
+  const segment = parent.querySelector('.home-timeline-item_segment');
+  if (segment) {
+    segment.classList.add('open');
+  }
+  const description = parent.querySelector('.home-timeline-item_content_description');
   description.style.display = 'block';
 }
 
