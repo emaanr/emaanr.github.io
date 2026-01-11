@@ -1,3 +1,3 @@
 <template>
-  <h1>Words</h1>
+  <h1>Thinking</h1>
 </template>

@@ -1,12 +1,20 @@
+<script setup lang="ts">
+import Header from '@/components/app/Header.vue'
+import Footer from '@/components/app/Footer.vue'
+
+</script>
+
 <template>
-  <h1>Hello App!</h1>
-  <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/works">Works</RouterLink>
-    <RouterLink to="/words">Words</RouterLink>
-  </nav>
+  <Header />
   <main>
     <RouterView />
   </main>
+  <Footer />
 </template>
+
+<style scoped>
+main {
+  padding: 0 20vw;
+  background-color: var(--ink-800);
+}
+</style>

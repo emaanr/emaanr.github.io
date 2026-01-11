@@ -1,15 +1,3 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
 body {
   background: var(--ink-700);
   color: var(--slate-050);
@@ -23,5 +11,5 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--red-600);
 }

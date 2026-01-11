@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import HomeView from "@/views/HomeView.vue";
-import WorksView from "@/views/WorksView.vue";
-import WordsView from "@/views/WordsView.vue";
+import ExecView from "@/views/ExecView.vue";
+import ReadView from "@/views/ReadView.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -13,14 +13,14 @@ export const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/works",
-      name: "works",
-      component: WorksView,
+      path: "/exec",
+      name: "exec",
+      component: ExecView,
     },
     {
-      path: "/words",
-      name: "words",
-      component: WordsView,
+      path: "/read",
+      name: "read",
+      component: ReadView,
     },
   ],
 });
