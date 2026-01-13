@@ -27,6 +27,6 @@ defineProps<{
 .timeline_item-content {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  font-size: 13px;
 }
 </style>

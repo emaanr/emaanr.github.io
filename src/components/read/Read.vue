@@ -1,5 +1,5 @@
 <template>
   <div id="read">
-    <h1>Thinking</h1>
+    <p>Still in my head.</p>
   </div>
 </template>

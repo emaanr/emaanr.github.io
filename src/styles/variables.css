@@ -29,7 +29,7 @@
   /* Accents               */
   /* ===================== */
 
-  --red-700: #d43432;
+  --red-700: #d43434;
   --red-600: #ee3b3b;
   --red-500: #ef5250;
   --red-400: #ef6462; /* Vim: Visual bg, Conditional fg, Define fg, Function fg, Keyword fg, Statement fg, Directory fg, Title fg, Tag fg, PmenuSel bg, SpecialKey bg | VSCode: keyword fg, focusBorder, activityBarBadge.background, badge.background, statusBar.background, editorLink.activeForeground, extensionButton.prominentBackground, peekView.border, panelTitle.activeBorder, scrollbarSlider.active/hover (alpha variants), editorBracketMatch.background (alpha), notification.buttonBackground, editorSuggestWidget.highlightForeground */
@@ -48,7 +48,7 @@
   /* ===================== */
 
   --content-padding: 1rem;
-  --home-margin: 250px;
+  --home-margin: 30%;
   --exec-margin: 1rem;
   --read-margin: 1rem;
 

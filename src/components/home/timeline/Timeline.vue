@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import TimelineSegment from '@/components/home/TimelineSegment.vue'
-import TimelineItem from '@/components/home/TimelineItem.vue'
+import WarbleText from '@/components/WarbleText.vue'
+import TimelineSegment from '@/components/home/timeline/TimelineSegment.vue'
+import TimelineItem from '@/components/home/timeline/TimelineItem.vue'
 import Bullets from '@/components/bullets/Bullets.vue'
 import Bullet from '@/components/bullets/Bullet.vue'
+import MoreMagnet from '@/components/MoreMagnet.vue'
 </script>
 
 <template>
   <section id="timeline">
+    <h4><WarbleText>TIMELINE</WarbleText></h4>
+    <p>So far:</p>
     <!-- Segment 1 - Start -->
     <TimelineSegment v-slot="{ isOpen }">
       <TimelineItem
@@ -36,10 +40,10 @@ import Bullet from '@/components/bullets/Bullet.vue'
           <Bullet>A lot more CS than during community college.</Bullet>
           <Bullet>Favorite classes were:
             <Bullets>
-              <Bullet>Computer Organization II</Bullet>
-              <Bullet>Computer Music & Multimedia</Bullet>
-              <Bullet>DSA Analysis</Bullet>
-              <Bullet>Computer Systems</Bullet>
+              <Bullet><i>Computer Organization II</i><MoreMagnet>, in MIPS32 Architecture.</MoreMagnet></Bullet>
+              <Bullet><i>Computer Music &amp; Multimedia</i><MoreMagnet>, using CSound and Max MSP.</MoreMagnet></Bullet>
+              <Bullet><i>DSA Analysis</i><MoreMagnet>, best office hours and collaborative sessions.</MoreMagnet></Bullet>
+              <Bullet><i>Computer Systems</i><MoreMagnet>, was a cool course in general, especially the projects.</MoreMagnet></Bullet>
             </Bullets>
           </Bullet>
         </Bullets>
@@ -56,8 +60,8 @@ import Bullet from '@/components/bullets/Bullet.vue'
         end="Present"
       >
         <Bullets>
-          <Bullet>First time coding.</Bullet>
-          <Bullet>Realized I liked CS, but also Math and Physics.</Bullet>
+          <Bullet>A lot of Python and JavaScript.</Bullet>
+          <Bullet>Full Stack Dev with React, Django, Vue, and AWS.</Bullet>
         </Bullets>
       </TimelineItem>
     </TimelineSegment>
