@@ -13,10 +13,6 @@ main {
 main > div {
   padding: var(--content-padding) 0;
   display: block;
-
-  h1 {
-    color: var(--red-400);
-  }
 }
 
 #home {
@@ -24,9 +20,9 @@ main > div {
 }
 
 #exec {
-
+  margin: 0 var(--exec-margin);
 }
 
 #read {
-
+  margin: 0 var(--read-margin);
 }

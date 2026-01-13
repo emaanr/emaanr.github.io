@@ -47,12 +47,14 @@
   /* Size Definitions      */
   /* ===================== */
 
-  --home-margin: 250px;
   --content-padding: 1rem;
+  --home-margin: 250px;
+  --exec-margin: 1rem;
+  --read-margin: 1rem;
 
   /* ===================== */
   /* Z-Index Layers        */
   /* ===================== */
 
-  --z-header: 100;
+  --z-name: 100; /* Placeholder, not in use atm, replace 'name' when use is defined */
 }
