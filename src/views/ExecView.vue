@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Exec from '@/components/exec/Exec.vue'
+</script>
+
 <template>
-  <h1>Doing</h1>
+  <Exec />
 </template>

@@ -37,12 +37,16 @@ footer {
   display: flex;
   padding: 0.2em 0.5em;
   justify-content: space-between;
-  background-color: var(--red-500);
+  background-color: var(--red-400);
   font-weight: 600;
 
   div {
     display: flex;
     gap: 0.5em;
+  }
+
+  p {
+    color: var(--white);
   }
 
   a {

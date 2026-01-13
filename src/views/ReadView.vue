@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Read from '@/components/read/Read.vue'
+</script>
+
 <template>
-  <h1>Thinking</h1>
+  <Read />
 </template>

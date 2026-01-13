@@ -34,6 +34,18 @@ const displayLabel = computed(() => hoverLabel.value ?? routeLabel.value)
 </template>
 
 <style scoped>
+header {
+  border-bottom: 1px solid var(--ink-400);
+}
+
+header span {
+  display: block;
+  text-align: center;
+  padding: 0.25rem 0;
+  font-size: 15px;
+  color: var(--slate-500)
+}
+
 nav {
   display: flex;
   justify-content: center;
@@ -43,19 +55,16 @@ nav {
 }
 
 nav a {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
 nav img {
   display: block;
-}
-
-header span {
-  display: block;
-  text-align: center;
-  padding: 0.5rem 0;
-  font-size: 15px;
-  color: var(--slate-500)
+  width: 87px;
+  height: auto;
+  image-rendering: pixelated;
 }
 </style>

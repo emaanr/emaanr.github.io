@@ -29,8 +29,10 @@
   /* Accents               */
   /* ===================== */
 
+  --red-700: #d43432;
   --red-600: #ee3b3b;
-  --red-500: #ef5250; /* Vim: Visual bg, Conditional fg, Define fg, Function fg, Keyword fg, Statement fg, Directory fg, Title fg, Tag fg, PmenuSel bg, SpecialKey bg | VSCode: keyword fg, focusBorder, activityBarBadge.background, badge.background, statusBar.background, editorLink.activeForeground, extensionButton.prominentBackground, peekView.border, panelTitle.activeBorder, scrollbarSlider.active/hover (alpha variants), editorBracketMatch.background (alpha), notification.buttonBackground, editorSuggestWidget.highlightForeground */
+  --red-500: #ef5250;
+  --red-400: #ef6462; /* Vim: Visual bg, Conditional fg, Define fg, Function fg, Keyword fg, Statement fg, Directory fg, Title fg, Tag fg, PmenuSel bg, SpecialKey bg | VSCode: keyword fg, focusBorder, activityBarBadge.background, badge.background, statusBar.background, editorLink.activeForeground, extensionButton.prominentBackground, peekView.border, panelTitle.activeBorder, scrollbarSlider.active/hover (alpha variants), editorBracketMatch.background (alpha), notification.buttonBackground, editorSuggestWidget.highlightForeground */
   --lavender-500: #968cea; /* Vim: Number fg, Float fg, IncSearch bg | VSCode: tokenColors constant.numeric fg */
   --lavender-400: #afa9e5; /* Vim: String fg, Character fg, Label fg | VSCode: tokenColors string fg, markup.raw.inline.markdown fg, meta.structure.dictionary.value.json string fg, constant.other.color fg */
 
@@ -40,4 +42,17 @@
 
   --black: #000;
   --white: #fff;
+
+  /* ===================== */
+  /* Size Definitions      */
+  /* ===================== */
+
+  --home-margin: 250px;
+  --content-padding: 1rem;
+
+  /* ===================== */
+  /* Z-Index Layers        */
+  /* ===================== */
+
+  --z-header: 100;
 }

@@ -1,0 +1,32 @@
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ink-700);
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+main > div {
+  padding: var(--content-padding) 0;
+  display: block;
+
+  h1 {
+    color: var(--red-400);
+  }
+}
+
+#home {
+  margin: 0 var(--home-margin);
+}
+
+#exec {
+
+}
+
+#read {
+
+}
