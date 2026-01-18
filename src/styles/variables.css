@@ -3,38 +3,38 @@
   /* Neutrals / Dark Bases */
   /* ===================== */
 
-  --ink-900: #030405; /* Vim: LineNr bg, StatusLine bg, StatusLineNC bg, Pmenu bg | VSCode: input.background, terminal.background */
-  --ink-850: #060708; /* VSCode: titleBar.activeBackground, peekViewEditor.background */
-  --ink-800: #0a0c0e; /* Vim: NonText bg, CursorColumn bg (also used as dark base in a few groups) | VSCode: dropdown.background, dropdown.border, editorGutter.background, peekViewEditorGutter.background, peekViewTitle.background */
-  --ink-700: #0e1114; /* Vim: Normal bg, Cursor fg | VSCode: editor.background, list.inactiveSelectionBackground */
-  --ink-600: #14191d; /* Vim: CursorLine bg | VSCode: editor.lineHighlightBackground, list.hoverBackground, editorGroup.background, editorGroupHeader.tabsBackground */
-  --ink-500: #181e23; /* VSCode: sideBar.background, notification.background, peekViewResult.background, terminal.ansiBlack */
-  --ink-400: #232a32; /* Vim: LineNr fg, VertSplit fg/bg | VSCode: editorIndentGuide.background, editorWhitespace.foreground, editorRuler.foreground */
-  --ink-300: #2d3741; /* Vim: DiffAdd fg, DiffDelete fg, DiffChange fg, DiffText fg, ErrorMsg fg, WarningMsg fg | VSCode: list.focusBackground, editorWhitespace.foreground */
-  --ink-200: #384450; /* VSCode: terminal.ansiBrightBlack, editorLineNumber.foreground, editorWidget.border, panel.border, scrollbarSlider.background, editorSuggestWidget.selectedBackground */
+  --ink-900: #030405;
+  --ink-850: #060708;
+  --ink-800: #0a0c0e;
+  --ink-700: #0e1114;
+  --ink-600: #14191d;
+  --ink-500: #181e23;
+  --ink-400: #232a32;
+  --ink-300: #2d3741;
+  --ink-200: #384450;
 
   /* ===================== */
   /* Blue-Greys / Text     */
   /* ===================== */
 
-  --slate-500: #44515e; /* Vim: Comment fg | VSCode: tokenColors Comment fg, diff.header fg */
-  --slate-400: #4d5d6e; /* Vim: CursorLineNr fg | VSCode: gitDecoration.ignoredResourceForeground */
-  --slate-300: #62778c; /* VSCode: tab.inactiveForeground */
-  --slate-200: #89a7bc; /* Vim: MatchParen fg, StorageClass fg | VSCode: constant.language fg, list.activeSelectionBackground, list.activeSelectionForeground uses bg/fg pair w/ #0e1114, editorBracketMatch.border, statusBar.noFolderBackground, inputOption.activeBorder, notification.button? (mostly UI selection/info accents), terminal.ansiYellow, terminal.ansiCyan, terminal.ansiBrightYellow, terminal.ansiBrightCyan */
-  --slate-100: #aeb9c4; /* Vim: StatusLine fg, StatusLineNC fg, Pmenu fg, Operator fg, Special fg, SpecialKey fg | VSCode: foreground, editor.foreground, terminal.foreground, activityBar.foreground, sideBar.foreground, notification.foreground, peekViewTitleLabel.foreground, editorSuggestWidget.foreground */
-  --slate-050: #bdc6cf; /* VSCode: terminal.ansiWhite */
-  --slate-000: #e6eaef; /* Vim: Normal fg, Boolean fg | VSCode: terminal.ansiBlue, progressBar.background, editor.wordHighlightBackground uses alpha variant of near-white */
+  --slate-500: #44515e;
+  --slate-400: #4d5d6e;
+  --slate-300: #62778c;
+  --slate-200: #89a7bc;
+  --slate-100: #aeb9c4;
+  --slate-050: #bdc6cf;
+  --slate-000: #e6eaef;
 
   /* ===================== */
   /* Accents               */
   /* ===================== */
 
-  --red-700: #d43434;
-  --red-600: #ee3b3b;
-  --red-500: #ef5250;
-  --red-400: #ef6462; /* Vim: Visual bg, Conditional fg, Define fg, Function fg, Keyword fg, Statement fg, Directory fg, Title fg, Tag fg, PmenuSel bg, SpecialKey bg | VSCode: keyword fg, focusBorder, activityBarBadge.background, badge.background, statusBar.background, editorLink.activeForeground, extensionButton.prominentBackground, peekView.border, panelTitle.activeBorder, scrollbarSlider.active/hover (alpha variants), editorBracketMatch.background (alpha), notification.buttonBackground, editorSuggestWidget.highlightForeground */
-  --lavender-500: #968cea; /* Vim: Number fg, Float fg, IncSearch bg | VSCode: tokenColors constant.numeric fg */
-  --lavender-400: #afa9e5; /* Vim: String fg, Character fg, Label fg | VSCode: tokenColors string fg, markup.raw.inline.markdown fg, meta.structure.dictionary.value.json string fg, constant.other.color fg */
+  --red-700: #d43434; /* added by me */
+  --red-600: #ee3b3b; /* added by me */
+  --red-500: #ef5250; /* added by me */
+  --red-400: #ef6462;
+  --lavender-500: #968cea;
+  --lavender-400: #afa9e5;
 
   /* ===================== */
   /* Black & Whites        */
@@ -47,10 +47,11 @@
   /* Size Definitions      */
   /* ===================== */
 
-  --content-padding: 1rem;
-  --home-margin: 30%;
-  --exec-margin: 1rem;
-  --read-margin: 1rem;
+  --home-max-width: 800px;
+  --read-max-width: 800px;
+  --exec-max-width: 1000px;
+
+  --main-padding: 1rem;
 
   /* ===================== */
   /* Z-Index Layers        */

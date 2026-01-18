@@ -8,21 +8,21 @@
 main {
   flex: 1;
   overflow-y: auto;
+  padding: var(--main-padding);
 }
 
 main > div {
-  padding: var(--content-padding) 0;
   display: block;
 }
 
 #home {
-  margin: 0 var(--home-margin);
+  width: 100%;
+  max-width: var(--home-max-width);
+  margin-inline: auto;
 }
 
 #exec {
-  margin: 0 var(--exec-margin);
 }
 
 #read {
-  margin: 0 var(--read-margin);
 }

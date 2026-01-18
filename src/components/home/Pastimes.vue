@@ -9,7 +9,7 @@ import MoreMagnet from '@/components/MoreMagnet.vue'
   <!-- Current Pastimes -->
   <section id="current_pastimes">
     <h4><WarbleText>CURRENT PASTIMES</WarbleText></h4>
-    <p>I like a lot of things, but this is typically how I'm spending my time:</p>
+    <p>I like a lot of things, but this is typically how I'm spending my time these days:</p>
     <Bullets>
       <Bullet>Programming<MoreMagnet>, mainly Web Dev personal projects at the moment.</MoreMagnet></Bullet>
       <Bullet>Exercise<MoreMagnet>, usually Resistance Training.</MoreMagnet></Bullet>
