@@ -1,0 +1,27 @@
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--main-padding);
+}
+
+main > div {
+  display: block;
+}
+
+#home {
+  width: 100%;
+  max-width: var(--home-max-width);
+  margin-inline: auto;
+}
+
+#exec {
+}
+
+#read {
+}
