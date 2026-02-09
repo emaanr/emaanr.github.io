@@ -1,5 +1,0 @@
-<template>
-  <div id="exec">
-    <p>Nothing, evidently.</p>
-  </div>
-</template>
