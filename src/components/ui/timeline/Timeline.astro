@@ -1,0 +1,56 @@
+---
+import WarbleText from "@components/ui/WarbleText.astro";
+import TimelineSegment from "@components/ui/timeline/TimelineSegment.astro";
+import TimelineItem from "@components/ui/timeline/TimelineItem.astro";
+import Bullets from "@components/ui/bullets/Bullets.astro";
+import Bullet from "@components/ui/bullets/Bullet.astro";
+import MoreMagnet from "@components/ui/MoreMagnet.astro";
+---
+
+<section id="timeline">
+  <h4><WarbleText>TIMELINE</WarbleText></h4>
+  <p>So far:</p>
+  <!-- Segment 1 - Start -->
+  <TimelineSegment>
+    <TimelineItem heading="Northern Virginia Community College" subheading="A.S. Engineering" start="2018/08" end="2019/12">
+      <Bullets>
+        <Bullet>First time coding.</Bullet>
+        <Bullet>Realized I liked CS, but also Math and Physics.</Bullet>
+      </Bullets>
+    </TimelineItem>
+  </TimelineSegment>
+  <!-- Segment 1 - End -->
+  <!-- Segment 2 - Start -->
+  <TimelineSegment>
+    <TimelineItem heading="Virginia Tech" subheading="B.S. Computer Science" start="2020/08" end="2022/12">
+      <Bullets>
+        <Bullet
+          >Favorite classes were:
+          <Bullets>
+            <Bullet><i>Computer Organization II</i><MoreMagnet>, in MIPS32 Architecture.</MoreMagnet></Bullet>
+            <Bullet><i>Computer Music &amp; Multimedia</i><MoreMagnet>, using CSound and Max MSP.</MoreMagnet></Bullet>
+            <Bullet><i>DSA Analysis</i><MoreMagnet>, best office hours and collaborative sessions.</MoreMagnet></Bullet>
+            <Bullet><i>Computer Systems</i><MoreMagnet>, was a cool course in general, especially the projects.</MoreMagnet></Bullet>
+          </Bullets>
+        </Bullet>
+      </Bullets>
+    </TimelineItem>
+  </TimelineSegment>
+  <!-- Segment 2 - End -->
+  <!-- Segment 3 - Start -->
+  <TimelineSegment>
+    <TimelineItem heading="Peraton" subheading="Software Engineer" start="2023/03" end="Present">
+      <Bullets>
+        <Bullet>A lot of Python and JavaScript.</Bullet>
+        <Bullet>Full Stack Dev with React, Django, Vue, and AWS.</Bullet>
+      </Bullets>
+    </TimelineItem>
+  </TimelineSegment>
+  <!-- Segment 3 - End -->
+</section>
+
+<style>
+  #timeline :global(.timeline_segment-container:last-child .timeline_segment::after) {
+    display: none;
+  }
+</style>

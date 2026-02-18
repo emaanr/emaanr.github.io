@@ -1,0 +1,52 @@
+<span class="more_magnet-wrapper"
+  ><button class="more_magnet"><span class="more_magnet-left">&lt;</span>&nbsp;&nbsp;<span class="more_magnet-right">&gt;</span></button><span
+    class="more_magnet-content"
+    hidden><slot /></span
+  ></span
+>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLButtonElement>(".more_magnet").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const content = btn.nextElementSibling as HTMLElement;
+        btn.hidden = true;
+        content.hidden = false;
+      });
+    });
+  });
+</script>
+
+<style>
+  .more_magnet {
+    position: relative;
+    top: -1px;
+    right: -5px;
+    vertical-align: middle;
+    background: linear-gradient(to right, rgba(239, 82, 80, 0.8) 52%, rgba(255, 255, 255, 0.8) 48%);
+    outline: 1px solid var(--red-600);
+    border-radius: 2px;
+    font-size: 0.6em;
+    line-height: 1.2;
+    padding: 0 0.2em;
+    margin: 0 0.5em;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .more_magnet:hover {
+    outline: 2px solid var(--red-700);
+  }
+
+  .more_magnet-left {
+    color: var(--white);
+  }
+
+  .more_magnet-right {
+    color: var(--black);
+  }
+
+  .more_magnet-content {
+    color: var(--slate-400);
+  }
+</style>

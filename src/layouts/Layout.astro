@@ -4,8 +4,14 @@ import "@styles/reset.css";
 import "@styles/layout.css";
 import "@styles/style.css";
 import { ClientRouter } from "astro:transitions";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+import Header from "@components/app/Header.astro";
+import Footer from "@components/app/Footer.astro";
+
+interface Props {
+  subheader?: string;
+}
+
+const { subheader } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,15 +22,12 @@ import Footer from "@components/Footer.astro";
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <title>Emaan Rana</title>
     <ClientRouter />
   </head>
   <body transition:animate="none">
-    <Header />
+    <Header subheader={subheader} />
     <main>
       <slot />
     </main>

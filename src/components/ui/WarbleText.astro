@@ -1,0 +1,36 @@
+<span class="warble-text"><slot /></span>
+
+<script>
+  const chars = "01|/\\-_~`*#@$%^&+=<>[]{}();:.,?!";
+
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLSpanElement>(".warble-text").forEach((span) => {
+      const text = span.textContent!;
+      let isWarbling = false;
+
+      function warble() {
+        if (isWarbling) return;
+        isWarbling = true;
+        const startTime = Date.now();
+
+        const interval = setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / 2000, 1);
+          let result = "";
+          for (let i = 0; i < text.length; i++) {
+            result += progress >= i / text.length ? text[i] : chars[Math.floor(Math.random() * chars.length)];
+          }
+          span.textContent = result;
+          if (progress === 1) {
+            clearInterval(interval);
+            span.textContent = text;
+            isWarbling = false;
+          }
+        }, 40);
+      }
+
+      setTimeout(warble, 1000);
+      span.addEventListener("mouseenter", warble);
+    });
+  });
+</script>
