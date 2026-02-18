@@ -1,0 +1,93 @@
+---
+import { Image } from "astro:assets";
+import ER from "@images/ER.png";
+
+interface Props {
+  subheader?: string;
+}
+
+const subheaders: Record<string, string> = {
+  "/": "emaan rana",
+  "/exec": "doing",
+  "/read": "thinking",
+};
+
+const { subheader = subheaders[Astro.url.pathname] ?? "emaan rana" } = Astro.props;
+---
+
+<header>
+  <nav>
+    <a href="/exec">exec</a>
+    <a href="/">
+      <Image src={ER} alt="ER" />
+    </a>
+    <a href="/read">read</a>
+  </nav>
+  <span>{subheader}</span>
+</header>
+
+<script>
+  const subheaders: Record<string, string> = {
+    "/exec": "doing",
+    "/": "emaan rana",
+    "/read": "thinking",
+  };
+
+  let navigating = false; // Flag to suppress hover changes during view transitions
+
+  // Lock hover during view transitions so the subheader doesn't flicker
+  document.addEventListener("astro:before-preparation", () => (navigating = true));
+
+  // Re-attach listeners on every page load (header DOM is replaced on each navigation)
+  document.addEventListener("astro:page-load", () => {
+    navigating = false;
+    const span = document.querySelector("header span")!;
+    const currentSubheader = span.textContent!; // Server-rendered text is already correct
+
+    const set = (text: string) => {
+      if (!navigating) span.textContent = text;
+    };
+
+    document.querySelectorAll<HTMLAnchorElement>("nav a").forEach((a) => {
+      const text = subheaders[a.pathname] ?? "";
+      a.onmouseenter = () => set(text); // Show hovered link's subheader
+      a.onmouseleave = () => set(currentSubheader); // Restore current page's subheader
+    });
+  });
+</script>
+
+<style>
+  header {
+    border-bottom: 1px solid var(--ink-400);
+  }
+
+  header span {
+    display: block;
+    text-align: center;
+    padding: 0.25rem 0;
+    font-size: 15px;
+    color: var(--slate-500);
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    padding-top: 1rem;
+  }
+
+  nav a {
+    font-size: 1rem;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  nav img {
+    display: block;
+    width: 87px;
+    height: auto;
+    image-rendering: pixelated;
+  }
+</style>
