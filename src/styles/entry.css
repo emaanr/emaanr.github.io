@@ -60,7 +60,7 @@
   flex-direction: column;
 }
 
-/* Bordered Group */
+/* Bordered Entries */
 .entries--bordered {
   border: 1px solid var(--ink-400);
 }
@@ -72,4 +72,10 @@
 
 .entries--bordered .entry + .entry {
   border-top: 1px solid var(--ink-400);
+}
+
+/* Gapped Entries */
+
+.entries--gap {
+  gap: 1rem;
 }

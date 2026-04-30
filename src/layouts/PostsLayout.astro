@@ -1,5 +1,5 @@
 ---
-import { formatDate } from "@utils";
+import { formatDate, groupByYear } from "@utils";
 import Entries from "@components/app/Entries.astro";
 import Entry from "@components/app/Entry.astro";
 import Tags from "@components/ui/tags/Tags.astro";
@@ -17,19 +17,12 @@ const { posts, path } = Astro.props;
 // Filter Drafts in Production
 const undrafted = (post: Post) => (import.meta.env.PROD ? post.data.draft !== true : true);
 
-// Group Posts by Year of `updated`
-const grouped = posts.filter(undrafted).reduce<Record<number, Post[]>>((acc, post) => {
-  const year = post.data.updated.getFullYear();
-  (acc[year] ??= []).push(post);
-  return acc;
-}, {});
+const grouped = groupByYear(
+  posts.filter(undrafted),
+  (post) => post.data.updated,
+  (post) => post.data.tz,
+);
 
-// Sort Posts within each Year (Newest First)
-for (const year in grouped) {
-  grouped[year].sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
-}
-
-// Sort Years Descending
 const years = Object.keys(grouped)
   .map(Number)
   .sort((a, b) => b - a);
@@ -46,7 +39,7 @@ const years = Object.keys(grouped)
               <p>{post.data.title}</p>
               <Tags tags={post.data.tags} />
             </div>
-            <span>{formatDate(post.data.updated)}</span>
+            <span>{formatDate(post.data.updated, post.data.tz)}</span>
           </Entry>
         ))}
       </Entries>
@@ -59,6 +52,7 @@ const years = Object.keys(grouped)
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    margin-top: 1rem;
   }
 
   .lhs {

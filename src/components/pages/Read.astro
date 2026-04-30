@@ -40,7 +40,7 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
                   <p>{post.data.title}</p>
                   <Tags tags={post.data.tags} />
                 </div>
-                <span>{formatDate(post.data.updated)}</span>
+                <span>{formatDate(post.data.updated, post.data.tz)}</span>
               </Entry>
             ))
           }
@@ -58,7 +58,7 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
                   <p>{post.data.title}</p>
                   <Tags tags={post.data.tags} />
                 </div>
-                <span>{formatDate(post.data.updated)}</span>
+                <span>{formatDate(post.data.updated, post.data.tz)}</span>
               </Entry>
             ))
           }
@@ -72,17 +72,19 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
           agree.
           <a href="/read/thoughts">All thoughts ⟶</a>
         </p>
-        {
-          recentThoughts.map(async (thought) => {
-            const { Content } = await render(thought);
-            return (
-              <Entry variant="thought">
-                <Content />
-                <span style="font-size: 0.8rem;">{formatDateTime(thought.data.created)}</span>
-              </Entry>
-            );
-          })
-        }
+        <Entries gap>
+          {
+            recentThoughts.map(async (thought) => {
+              const { Content } = await render(thought);
+              return (
+                <Entry variant="thought">
+                  <Content />
+                  <span style="font-size: 0.8rem;">{formatDateTime(thought.data.created, thought.data.tz)}</span>
+                </Entry>
+              );
+            })
+          }
+        </Entries>
       </section>
     </div>
   </BreadcrumbsLayout>

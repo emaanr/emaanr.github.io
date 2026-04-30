@@ -1,11 +1,12 @@
 ---
 interface Props {
   bordered?: boolean;
+  gap?: boolean;
 }
 
-const { bordered = false } = Astro.props;
+const { bordered = false, gap = false } = Astro.props;
 
-const classes = ["entries", bordered && "entries--bordered"].filter(Boolean).join(" ");
+const classes = ["entries", bordered && "entries--bordered", gap && "entries--gap"].filter(Boolean).join(" ");
 ---
 
 <div class={classes}>
