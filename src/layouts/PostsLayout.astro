@@ -1,0 +1,70 @@
+---
+import { formatDate } from "@utils";
+import Entries from "@components/app/Entries.astro";
+import Entry from "@components/app/Entry.astro";
+import Tags from "@components/ui/tags/Tags.astro";
+import type { CollectionEntry } from "astro:content";
+
+type Post = CollectionEntry<"readBlog"> | CollectionEntry<"readNotes">;
+
+interface Props {
+  posts: Post[];
+  path: "blog" | "notes";
+}
+
+const { posts, path } = Astro.props;
+
+// Filter Drafts in Production
+const undrafted = (post: Post) => (import.meta.env.PROD ? post.data.draft !== true : true);
+
+// Group Posts by Year of `updated`
+const grouped = posts.filter(undrafted).reduce<Record<number, Post[]>>((acc, post) => {
+  const year = post.data.updated.getFullYear();
+  (acc[year] ??= []).push(post);
+  return acc;
+}, {});
+
+// Sort Posts within each Year (Newest First)
+for (const year in grouped) {
+  grouped[year].sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
+}
+
+// Sort Years Descending
+const years = Object.keys(grouped)
+  .map(Number)
+  .sort((a, b) => b - a);
+---
+
+{
+  years.map((year) => (
+    <section class="year">
+      <h1>{year}</h1>
+      <Entries bordered>
+        {grouped[year].map((post) => (
+          <Entry variant="post" href={`/read/${path}/${post.id}`}>
+            <div class="lhs">
+              <p>{post.data.title}</p>
+              <Tags tags={post.data.tags} />
+            </div>
+            <span>{formatDate(post.data.updated)}</span>
+          </Entry>
+        ))}
+      </Entries>
+    </section>
+  ))
+}
+
+<style>
+  .year {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .lhs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>

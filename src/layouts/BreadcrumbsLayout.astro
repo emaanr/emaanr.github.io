@@ -1,0 +1,12 @@
+---
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+
+interface Props {
+  currentCrumb?: string;
+}
+
+const { currentCrumb } = Astro.props;
+---
+
+<Breadcrumbs currentCrumb={currentCrumb} />
+<slot />

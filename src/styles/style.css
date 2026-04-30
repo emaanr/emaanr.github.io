@@ -17,3 +17,7 @@ a:hover {
 .muted {
   color: var(--slate-400);
 }
+
+.mk:hover {
+  color: var(--mk);
+}

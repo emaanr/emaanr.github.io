@@ -1,0 +1,35 @@
+---
+interface Props {
+  variant: "post" | "exec" | "thought";
+  href?: string;
+}
+
+const { variant, href } = Astro.props;
+
+// Map variants to class combinations
+const variantClasses: Record<Props["variant"], string[]> = {
+  post: ["post", "entry--accent", "entry--accent-primary", "entry--accent-hover", "entry--hover", "entry--bordered", "entry--clickable"],
+  exec: ["exec", "entry--hover", "entry--bordered", "entry--clickable"],
+  thought: ["thought", "entry--accent", "entry--accent-primary", "entry--accent-hover", "entry--hover", "entry--bordered"],
+};
+
+const classes = ["entry", ...variantClasses[variant]].join(" ");
+
+const Element = href ? "a" : "div";
+---
+
+<Element class={classes} href={href}>
+  <slot />
+</Element>
+
+<style>
+  .post {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .toc {
+    font-size: 0.8rem;
+  }
+</style>

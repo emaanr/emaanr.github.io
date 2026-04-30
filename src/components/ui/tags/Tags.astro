@@ -1,0 +1,22 @@
+---
+import Tag from "@components/ui/tags/Tag.astro";
+
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<div class="tags">
+  {tags.map((tag) => <Tag tag={tag} />)}
+</div>
+
+<style>
+  .tags {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+  }
+</style>

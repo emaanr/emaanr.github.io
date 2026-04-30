@@ -1,7 +1,112 @@
 ---
+import { getCollection, render } from "astro:content";
+import { formatDate, formatDateTime } from "@utils";
+import BreadcrumbsLayout from "@layouts/BreadcrumbsLayout.astro";
+import Entries from "@components/app/Entries.astro";
+import Entry from "@components/app/Entry.astro";
+import Tags from "@components/ui/tags/Tags.astro";
 
+// const blog = await getCollection("readBlog");
+// const notes = await getCollection("readNotes");
+// const thoughts = await getCollection("readThoughts");
+
+// console.log("BLOG:", blog);
+// console.log("NOTES:", notes);
+// console.log("THOUGHTS:", thoughts);
+
+const undrafted = (entry: { data: { draft?: boolean } }) => (import.meta.env.PROD ? entry.data.draft !== true : true);
+
+const sortBy = <T extends { data: Record<string, any> }>(entries: T[], date: "updated" | "created") =>
+  [...entries].sort((a, b) => b.data[date].valueOf() - a.data[date].valueOf());
+
+const recentBlog = sortBy((await getCollection("readBlog")).filter(undrafted), "updated").slice(0, 3);
+const recentNotes = sortBy((await getCollection("readNotes")).filter(undrafted), "updated").slice(0, 3);
+const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undrafted), "created").slice(0, 3);
 ---
 
 <div id="read">
-  <p>Still in my head.</p>
+  <BreadcrumbsLayout>
+    <div>
+      <p>Read some thoughts I've turned into writing.</p>
+      <!-- Blog -->
+      <section id="blog">
+        <h1>Blog</h1>
+        <p>Posts about anything really. <a href="/read/blog">All posts ⟶</a></p>
+        <Entries bordered>
+          {
+            recentBlog.map((post) => (
+              <Entry variant="post" href={`/read/blog/${post.id}`}>
+                <div class="lhs">
+                  <p>{post.data.title}</p>
+                  <Tags tags={post.data.tags} />
+                </div>
+                <span>{formatDate(post.data.updated)}</span>
+              </Entry>
+            ))
+          }
+        </Entries>
+      </section>
+      <!-- Notes -->
+      <section id="notes">
+        <h1>Notes</h1>
+        <p>Notes on different topics. <a href="/read/notes">All notes ⟶</a></p>
+        <Entries bordered>
+          {
+            recentNotes.map((post) => (
+              <Entry variant="post" href={`/read/notes/${post.id}`}>
+                <div class="lhs">
+                  <p>{post.data.title}</p>
+                  <Tags tags={post.data.tags} />
+                </div>
+                <span>{formatDate(post.data.updated)}</span>
+              </Entry>
+            ))
+          }
+        </Entries>
+      </section>
+      <!-- Thoughts -->
+      <section id="thoughts">
+        <h1>Thoughts</h1>
+        <p>
+          My <a class="mk" href="https://blog.mikail-khan.com/updates">friend</a> said the problem with Twitter is that it has other people on it, and I
+          agree.
+          <a href="/read/thoughts">All thoughts ⟶</a>
+        </p>
+        {
+          recentThoughts.map(async (thought) => {
+            const { Content } = await render(thought);
+            return (
+              <Entry variant="thought">
+                <Content />
+                <span style="font-size: 0.8rem;">{formatDateTime(thought.data.created)}</span>
+              </Entry>
+            );
+          })
+        }
+      </section>
+    </div>
+  </BreadcrumbsLayout>
 </div>
+
+<style>
+  #read > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #blog,
+  #notes,
+  #thoughts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .lhs {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+</style>

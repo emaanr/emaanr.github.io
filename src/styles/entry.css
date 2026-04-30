@@ -1,0 +1,75 @@
+.entry {
+  position: relative;
+  display: block;
+  padding: 0.25rem 0.5rem;
+  background: var(--ink-600);
+  color: var(--slate-050);
+  text-decoration: none;
+  transition: background-color 150ms ease;
+}
+
+/* Accent */
+.entry--accent {
+  padding-left: 1rem; /* Accent Space */
+}
+
+/* Accent */
+.entry--accent::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--red-500);
+  transition: width 250ms ease;
+}
+
+.entry--accent-primary::before {
+  background: var(--red-500);
+}
+
+.entry--accent-secondary::before {
+  background: var(--slate-100);
+}
+
+/* Accent Hover */
+.entry--accent-hover:hover::before {
+  width: 8px;
+}
+
+/* Background Hover */
+.entry--hover:hover {
+  background: var(--ink-500);
+  color: var(--slate-100);
+}
+
+/* Bordered */
+.entry--bordered {
+  border: 1px solid var(--ink-400);
+}
+
+/* Clickable */
+.entry--clickable {
+  cursor: pointer;
+}
+
+/* Entries */
+.entries {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bordered Group */
+.entries--bordered {
+  border: 1px solid var(--ink-400);
+}
+
+.entries--bordered .entry--bordered {
+  border: none;
+  border-radius: 0;
+}
+
+.entries--bordered .entry + .entry {
+  border-top: 1px solid var(--ink-400);
+}

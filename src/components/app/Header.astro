@@ -6,13 +6,17 @@ interface Props {
   subheader?: string;
 }
 
-const subheaders: Record<string, string> = {
-  "/": "emaan rana",
-  "/exec": "doing",
-  "/read": "thinking",
+const subheaderRules: Array<[string, string]> = [
+  ["/exec", "doing"],
+  ["/read", "thinking"],
+];
+
+const getSubheader = (pathname: string): string => {
+  if (pathname === "/") return "emaan rana";
+  return subheaderRules.find(([prefix]) => pathname.startsWith(prefix))?.[1] ?? "emaan rana";
 };
 
-const { subheader = subheaders[Astro.url.pathname] ?? "emaan rana" } = Astro.props;
+const { subheader = getSubheader(Astro.url.pathname) } = Astro.props;
 ---
 
 <header>
@@ -27,10 +31,14 @@ const { subheader = subheaders[Astro.url.pathname] ?? "emaan rana" } = Astro.pro
 </header>
 
 <script>
-  const subheaders: Record<string, string> = {
-    "/exec": "doing",
-    "/": "emaan rana",
-    "/read": "thinking",
+  const subheaderRules: Array<[string, string]> = [
+    ["/exec", "doing"],
+    ["/read", "thinking"],
+  ];
+
+  const getSubheader = (pathname: string): string => {
+    if (pathname === "/") return "emaan rana";
+    return subheaderRules.find(([prefix]) => pathname.startsWith(prefix))?.[1] ?? "emaan rana";
   };
 
   let navigating = false; // Flag to suppress hover changes during view transitions
@@ -49,7 +57,7 @@ const { subheader = subheaders[Astro.url.pathname] ?? "emaan rana" } = Astro.pro
     };
 
     document.querySelectorAll<HTMLAnchorElement>("nav a").forEach((a) => {
-      const text = subheaders[a.pathname] ?? "";
+      const text = getSubheader(a.pathname);
       a.onmouseenter = () => set(text); // Show hovered link's subheader
       a.onmouseleave = () => set(currentSubheader); // Restore current page's subheader
     });

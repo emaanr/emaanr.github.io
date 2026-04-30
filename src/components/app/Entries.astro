@@ -1,0 +1,13 @@
+---
+interface Props {
+  bordered?: boolean;
+}
+
+const { bordered = false } = Astro.props;
+
+const classes = ["entries", bordered && "entries--bordered"].filter(Boolean).join(" ");
+---
+
+<div class={classes}>
+  <slot />
+</div>

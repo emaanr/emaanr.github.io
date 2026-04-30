@@ -49,7 +49,7 @@
 
   --home-max-width: 800px;
   --read-max-width: 800px;
-  --exec-max-width: 1000px;
+  --exec-max-width: 800px;
 
   --main-padding: 1rem;
 
@@ -58,4 +58,10 @@
   /* ===================== */
 
   --z-name: 100;
+
+  /* ===================== */
+  /* Extra                 */
+  /* ===================== */
+
+  --mk: #6192f4;
 }

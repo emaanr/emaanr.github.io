@@ -21,7 +21,13 @@ main > div {
 }
 
 #exec {
+  width: 100%;
+  max-width: var(--exec-max-width);
+  margin-inline: auto;
 }
 
-#read {
+#read, #post, #posts {
+  width: 100%;
+  max-width: var(--read-max-width);
+  margin-inline: auto;
 }

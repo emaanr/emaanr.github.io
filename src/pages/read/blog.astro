@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import BreadcrumbsLayout from "@layouts/BreadcrumbsLayout.astro";
+import PostsLayout from "@layouts/PostsLayout.astro";
+
+const posts = await getCollection("readBlog");
+---
+
+<Layout>
+  <div id="posts">
+    <BreadcrumbsLayout>
+      <PostsLayout posts={posts} path="blog" />
+    </BreadcrumbsLayout>
+  </div>
+</Layout>

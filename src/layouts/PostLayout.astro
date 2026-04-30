@@ -1,0 +1,56 @@
+---
+import { render } from "astro:content";
+import { formatDate } from "@utils";
+import Layout from "@layouts/Layout.astro";
+import BreadcrumbsLayout from "./BreadcrumbsLayout.astro";
+import Tags from "@components/ui/tags/Tags.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"readBlog"> | CollectionEntry<"readNotes">;
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const updated = formatDate(post.data.updated);
+const created = formatDate(post.data.created);
+---
+
+<Layout>
+  <article id="post">
+    <BreadcrumbsLayout>
+      <div class="markdown">
+        <div id="metadata">
+          <span class="label">Updated:</span>
+          <span>{updated}</span>
+          <span class="sep">✱</span>
+          <span class="label">Created:</span>
+          <span>{created}</span>
+          <span class="sep">✱</span>
+          <Tags tags={post.data.tags} />
+        </div>
+        <Content />
+      </div>
+    </BreadcrumbsLayout>
+  </article>
+</Layout>
+
+<style>
+  #metadata {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.8rem;
+    align-items: center;
+  }
+
+  .sep {
+    color: var(--red-400);
+    padding: 0 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .label {
+    padding-right: 0.25rem;
+  }
+</style>
