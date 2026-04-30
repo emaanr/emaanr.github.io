@@ -13,8 +13,8 @@ interface Props {
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
-const updated = formatDate(post.data.updated, post.data.tz);
-const created = formatDate(post.data.created, post.data.tz);
+const updated = formatDate(post.data.updated);
+const created = formatDate(post.data.created);
 ---
 
 <Layout>

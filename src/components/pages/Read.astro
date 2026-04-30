@@ -40,7 +40,7 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
                   <p>{post.data.title}</p>
                   <Tags tags={post.data.tags} />
                 </div>
-                <span>{formatDate(post.data.updated, post.data.tz)}</span>
+                <span>{formatDate(post.data.updated)}</span>
               </Entry>
             ))
           }
@@ -58,7 +58,7 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
                   <p>{post.data.title}</p>
                   <Tags tags={post.data.tags} />
                 </div>
-                <span>{formatDate(post.data.updated, post.data.tz)}</span>
+                <span>{formatDate(post.data.updated)}</span>
               </Entry>
             ))
           }

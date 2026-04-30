@@ -9,13 +9,13 @@ const getOffsetLabel = (d: Date, tz: string): string =>
     .formatToParts(d)
     .find((p) => p.type === "timeZoneName")?.value ?? "";
 
-export const formatDate = (d: Date, tz: string) =>
-  `${parseAsUTC(d).toLocaleDateString("en-US", {
+export const formatDate = (d: Date) =>
+  parseAsUTC(d).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
     timeZone: "UTC",
-  })} ${getOffsetLabel(d, tz)}`;
+  });
 
 export const formatDateTime = (d: Date, tz: string) =>
   `${parseAsUTC(d).toLocaleString("en-US", {
