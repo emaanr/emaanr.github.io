@@ -1,0 +1,80 @@
+---
+import Tags from "@components/ui/tags/Tags.astro";
+import Tag from "@components/ui/tags/Tag.astro";
+
+interface Props {
+  id: string;
+  name: string;
+  description: string;
+  image?: ImageMetadata;
+  repo?: string;
+  tags: string[];
+}
+
+const { id, name, description, image, repo, tags } = Astro.props;
+---
+
+<div class="project">
+  <h2 class="name"><a href={`/exec/${id}`}>{name}</a></h2>
+
+  {
+    image && (
+      <div class="image">
+        <img src={image.src} />
+      </div>
+    )
+  }
+
+  <p class="description">{description}</p>
+
+  <footer>
+    <div>
+      <Tags tags={tags} />
+    </div>
+    <div class="repo">
+      {repo && <Tag tag="Repo" href={repo} />}
+    </div>
+  </footer>
+</div>
+
+<style>
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+  }
+
+  .name {
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+
+  .description {
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    gap: 0.5rem;
+
+    .tags {
+      flex-wrap: wrap;
+    }
+
+    .repo {
+      display: flex;
+      align-items: center;
+      align-self: flex-end;
+    }
+  }
+</style>

@@ -6,14 +6,6 @@ import Entries from "@components/app/Entries.astro";
 import Entry from "@components/app/Entry.astro";
 import Tags from "@components/ui/tags/Tags.astro";
 
-// const blog = await getCollection("readBlog");
-// const notes = await getCollection("readNotes");
-// const thoughts = await getCollection("readThoughts");
-
-// console.log("BLOG:", blog);
-// console.log("NOTES:", notes);
-// console.log("THOUGHTS:", thoughts);
-
 const undrafted = (entry: { data: { draft?: boolean } }) => (import.meta.env.PROD ? entry.data.draft !== true : true);
 
 const sortBy = <T extends { data: Record<string, any> }>(entries: T[], date: "updated" | "created") =>
@@ -68,8 +60,8 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
       <section id="thoughts">
         <h1>Thoughts</h1>
         <p>
-          My <a class="mk" href="https://blog.mikail-khan.com/updates">friend</a> said the problem with Twitter is that it has other people on it, and I
-          agree.
+          My <a class="mk" href="https://blog.mikail-khan.com/updates" target="_blank" rel="noopener noreferrer"> friend </a> said the problem with Twitter
+          is that it has other people on it, and I agree.
           <a href="/read/thoughts">All thoughts ⟶</a>
         </p>
         <Entries gap>

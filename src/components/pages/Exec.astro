@@ -1,7 +1,35 @@
 ---
+import { getCollection } from "astro:content";
+import Entry from "@components/app/Entry.astro";
+import Project from "@components/ui/Project.astro";
 
+const projects = await getCollection("execProjects", ({ data }) => !data.draft);
+const sorted = projects.sort((a, b) => b.data.updated.getTime() - a.data.updated.getTime());
 ---
 
 <div id="exec">
-  <p>Nothing (yet!), things are in the works...</p>
+  <div class="projects">
+    {
+      sorted.map((project) => (
+        <Entry variant="exec">
+          <Project
+            id={project.id}
+            name={project.data.name}
+            description={project.data.description}
+            image={project.data.image}
+            repo={project.data.repo}
+            tags={project.data.tags}
+          />
+        </Entry>
+      ))
+    }
+  </div>
 </div>
+
+<style>
+  .projects {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+</style>

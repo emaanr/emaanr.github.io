@@ -9,7 +9,7 @@ const { variant, href } = Astro.props;
 // Map variants to class combinations
 const variantClasses: Record<Props["variant"], string[]> = {
   post: ["post", "entry--accent", "entry--accent-primary", "entry--accent-hover", "entry--hover", "entry--bordered", "entry--clickable"],
-  exec: ["exec", "entry--hover", "entry--bordered", "entry--clickable"],
+  exec: ["exec", "entry--hover", "entry--bordered"],
   thought: ["thought", "entry--accent", "entry--accent-primary", "entry--accent-hover", "entry--hover", "entry--bordered"],
 };
 
@@ -31,5 +31,9 @@ const Element = href ? "a" : "div";
 
   .toc {
     font-size: 0.8rem;
+  }
+
+  .exec {
+    padding-bottom: 0.5rem;
   }
 </style>

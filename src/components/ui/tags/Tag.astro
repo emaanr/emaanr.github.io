@@ -1,12 +1,21 @@
 ---
 interface Props {
   tag: string;
+  href?: string;
 }
 
-const { tag } = Astro.props;
+const { tag, href } = Astro.props;
 ---
 
-<span class="tag">{tag}</span>
+{
+  href ? (
+    <a class="tag clickable" href={href} target="_blank" rel="noopener noreferrer">
+      {tag}
+    </a>
+  ) : (
+    <span class="tag">{tag}</span>
+  )
+}
 
 <style>
   .tag {
@@ -17,5 +26,14 @@ const { tag } = Astro.props;
     color: var(--black);
     background: var(--ink-300);
     white-space: nowrap;
+  }
+
+  .clickable {
+    background: var(--red-500);
+    cursor: pointer;
+  }
+
+  .clickable:hover {
+    background: var(--red-600);
   }
 </style>

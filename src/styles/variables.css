@@ -48,8 +48,8 @@
   /* ===================== */
 
   --home-max-width: 800px;
-  --read-max-width: 800px;
-  --exec-max-width: 800px;
+  --read-max-width: 1000px;
+  --exec-max-width: 1200px;
 
   --main-padding: 1rem;
 

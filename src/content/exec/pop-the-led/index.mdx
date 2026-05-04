@@ -1,0 +1,170 @@
+---
+draft: false
+name: Pop The Led
+description:
+  Pop the Lock but with LEDs.
+image: ./image.png
+repo: https://github.com/emaanr/pop-the-led
+created: 2026-04-30T00:00:00
+updated: 2026-04-30T00:00:00
+tags: [Embedded, Electronics, FreeRTOS, ESP32, C]
+tz: "America/New_York"
+---
+
+import breadboard from './breadboard.svg';
+import schema from './schema.svg';
+
+> Project repo: [pop-the-led](https://github.com/emaanr/pop-the-led).
+
+# Pop The Led
+
+Idea my <a class="mk" href="https://mikail-khan.com" target="_blank" rel="noopener noreferrer">friend</a> pitched to me as a way to make blinking an LED with a button a bit more interesting/motivating. Essentially just a line of LEDs on a breadboard where:
+
+1. One LED called the `target` gets dimly lit at random.
+2. There is a brightly lit `cursor` that is oscillating on the line of LEDs.
+3. When the `cursor` overlaps with the dimly lit LED, you hit the button and get a point.
+
+# Intro
+
+I've been trying to teach myself embedded so this is a blogpost about the first small embedded project I did. There was a lot I needed to review and learn to _really_ feel like I understood what I was doing. Last year I tried to do some bare-metal programming on STM32 but didn't get very far. I was watching a tutorial and didn't know what a bus was exactly so I looked it up and then just had more questions the more I got into it. I wrote a big info-dump-markdown-notes-draft thing but didn't finish it. I want to refine and post it sometime. I also did some breadboarding with a friend one day last year when we were hanging out so I had _some_ background, but not a ton. Largely I felt like I was at a point where I had a vague impression of many of these things but not a concrete understanding and I wanted to fix that.
+
+# Process
+
+These are the things I did as a part of the process for working on this, not strictly in this order, but roughly:
+
+1. Figure out the components I needed and why and then bought anything I didn't already have.
+2. Review and learn some of the concepts behind the electronics at play. I followed the first 8 chapters covered by these lectures: [Basic Electronics with Joe Gryniuk](https://theblowtorchofparma.com/basic-electronics.htm). They are pretty old but the teaching style was enjoyable and clear.
+3. Reviewed the C programming language since I hadn't really used it since undergrad ~3-4 years ago. I needed to clarify my understanding of pointers, memory, stack, heap, etc. Planning to post my notes on that too hopefully.
+4. Reviewed the specific ESP32 dev board I was using. Eventually I found this really nice reference: [DOIT ESP32 DEVKIT V1](https://www.espboards.dev/esp32/esp32doit-devkit-v1/).
+5. I also used [LearnESP32](https://learnesp32.com/) as a point of reference for introducing me to some of the kinds of things I could do and may want to do with the specific dev board I had. These were nice because it uses ESP IDF which uses FreeRTOS and I wanted to get practice with RTOS.
+6. Built out the project on the breadboard.
+7. Wrote the code for the project.
+8. Popped the LED!
+
+## Workflow
+
+1. Open terminal and run `. ~/esp/esp-idf/export.fish` so you can use `idf.py`.
+   - I use fish shell which is why I run the `.fish` script, this will be different for other shells.
+2. Run `idf.py create-project <project_name>`.
+   - Note that C identifiers don't support hyphens and this command autogenerates a C file with the `<project_name>.c` and uses it in `CMakeLists.txt` (you can always rename them).
+3. Then run `idf.py set-target esp32` to tell the build system which chip to compile for.
+4. Use `sudo chmod 666 /dev/ttyUSB0` to grant permissions for flashing for the terminal session.
+5. Use `idf.py -p /dev/ttyUSB0 -b 115200 flash monitor` with the `-b 115200` optional to manage speed of operation if default doesn't work.
+   - Some cables or ports don't handle the default chunk size well. Best results from plugging directly into the machine rather than a USB hub or something.
+
+# Dev Board
+
+<center>
+
+| Dev Board    | DOIT ESP32 DEVKIT V1          |
+| :----------- | :---------------------------- |
+| Model        | ESP-WROOM-32                  |
+| Chip         | ESP32-D0WD-V3 (revision v3.1) |
+| Cores        | 2                             |
+| RAM          | 512 MB                        |
+| Flash        | 4 MB                          |
+| Architecture | Xtensa                        |
+
+</center>
+
+> More specs for the dev board can be found [here](https://www.espboards.dev/esp32/esp32doit-devkit-v1/). I just listed the ones that I remember mattering for me when I was developing.
+
+## Pins
+
+These are the pins I used:
+
+- `D13` `GPIO13` - Orange Wire to LED
+- `D27` `GPIO27` - Yellow Wire to LED
+- `D26` `GPIO26` - Green Wire to LED
+- `D25` `GPIO25` - Blue Wire to LED
+- `D33` `GPIO33` - Violet Wire to LED
+- `D32` `GPIO32` - Ochre Wire to LED
+- `D34` `GPIO34` - Grey Wire to Button
+
+> I decided to use `D34` `GPIO34` for the button since is in an input only pin.
+
+## Diagrams
+
+Project diagrams.
+
+### Breadboard
+
+<center><img src={breadboard.src} width="800" style={{ background: 'var(--ink-500)', padding: '1rem' }} /></center>
+
+### Schematics
+
+<center><img src={schema.src} width="800" style={{ background: 'var(--ink-500)', padding: '1rem' }} /></center>
+
+## Demo
+
+Coming soon...
+
+# BOM
+
+Bill of Materials:
+
+- `1x` Breadboard
+- `1x` DOIT ESP32 DEVKIT V1
+- `6x` Red LED
+- `1x` Large Tactile Button
+- `1x` Button Cap
+- `x6` 330 Ω Resistors
+- `x1` 10 kΩ Resistor
+- `x11` Wires
+
+{/*
+# Concepts
+
+## Hardware Fundamentals
+
+### GPIO Modes
+### Strapping Pins
+### Resistors
+#### Current-Limiting Resistors
+#### Pulldown Resistors
+### Debounce
+
+## PWM
+
+### Duty Cycle & Frequency
+### LEDC
+
+## Real-Time Operating Systems
+
+### RTOS
+#### Preemptive Scheduling
+### Tasks
+#### Task Pinning
+### SMP
+### Scheduler
+### Context Switching
+
+## Synchronization Primitives
+
+### Mutex
+### Semaphore
+#### Binary vs Counting
+### Producer/Consumer Pattern
+
+## Concurrency Hazards
+
+### Race Conditions
+### Deadlock
+### Critical Sections
+### Atomicity vs Freshness
+
+## Interrupts
+
+### ISR
+#### Interrupt Context vs Task Context
+#### IRAM_ATTR
+#### portYIELD_FROM_ISR
+### Edge-Trigger vs Level-Trigger
+
+## Toolchain & Debugging
+
+### ESP-IDF
+### Cross-Compilation
+### UART Serial Debugging
+### Brownout Detector
+*/}

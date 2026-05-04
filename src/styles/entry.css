@@ -22,7 +22,7 @@
   bottom: 0;
   width: 4px;
   background: var(--red-500);
-  transition: width 250ms ease;
+  transition: width 100ms ease;
 }
 
 .entry--accent-primary::before {

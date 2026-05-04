@@ -16,15 +16,19 @@ const tags = z.enum([
   'ESP32',
   'FreeRTOS',
   'Mobile',
+  'Android',
   'Kotlin',
   'Jetpack Compose'
 ])
 
 const execProjects = defineCollection({
-  loader: glob({ base: './src/content/exec/projects', pattern: '**/*.md' }),
-  schema: z.object({
+  loader: glob({ base: './src/content/exec', pattern: '**/*.{md,mdx}' }),
+  schema: ({ image }) => z.object({
     draft: z.boolean().default(false),
     name: z.string(),
+    description: z.string(),
+    image: image().optional(),
+    repo: z.string().url().optional(),
     created: z.coerce.date(),
     updated: z.coerce.date(),
     tags: z.array(tags).default([]),
@@ -33,7 +37,7 @@ const execProjects = defineCollection({
 })
 
 const readBlog = defineCollection({
-  loader: glob({ base: './src/content/read/blog', pattern: '**/*.md' }),
+  loader: glob({ base: './src/content/read/blog', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     draft: z.boolean().default(false),
     title: z.string(),
@@ -45,7 +49,7 @@ const readBlog = defineCollection({
 })
 
 const readNotes = defineCollection({
-  loader: glob({ base: './src/content/read/notes', pattern: '**/*.md' }),
+  loader: glob({ base: './src/content/read/notes', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     draft: z.boolean().default(false),
     title: z.string(),
@@ -57,7 +61,7 @@ const readNotes = defineCollection({
 })
 
 const readThoughts = defineCollection({
-  loader: glob({ base: './src/content/read/thoughts', pattern: '**/*.md' }),
+  loader: glob({ base: './src/content/read/thoughts', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     draft: z.boolean().default(false),
     created: z.coerce.date(),
