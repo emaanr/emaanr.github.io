@@ -1,6 +1,6 @@
 ---
 draft: false
-name: Pop The Led
+name: Pop The LED
 description:
   Pop the Lock but with LEDs.
 image: ./image.png
@@ -16,7 +16,7 @@ import schema from './schema.svg';
 
 > Project repo: [pop-the-led](https://github.com/emaanr/pop-the-led).
 
-# Pop The Led
+# Pop The LED
 
 Idea my <a class="mk" href="https://mikail-khan.com" target="_blank" rel="noopener noreferrer">friend</a> pitched to me as a way to make blinking an LED with a button a bit more interesting/motivating. Essentially just a line of LEDs on a breadboard where:
 
@@ -32,10 +32,10 @@ I've been trying to teach myself embedded so this is a blogpost about the first 
 
 These are the things I did as a part of the process for working on this, not strictly in this order, but roughly:
 
-1. Figure out the components I needed and why and then bought anything I didn't already have.
+1. Figure out the components I needed and why (like what resistor values do I need and why) and then bought anything I didn't already have.
 2. Review and learn some of the concepts behind the electronics at play. I followed the first 8 chapters covered by these lectures: [Basic Electronics with Joe Gryniuk](https://theblowtorchofparma.com/basic-electronics.htm). They are pretty old but the teaching style was enjoyable and clear.
 3. Reviewed the C programming language since I hadn't really used it since undergrad ~3-4 years ago. I needed to clarify my understanding of pointers, memory, stack, heap, etc. Planning to post my notes on that too hopefully.
-4. Reviewed the specific ESP32 dev board I was using. Eventually I found this really nice reference: [DOIT ESP32 DEVKIT V1](https://www.espboards.dev/esp32/esp32doit-devkit-v1/).
+4. Reviewed the specific ESP32 dev board I was using. Eventually I found this really nice reference: [DOIT ESP32 DevKit v1](https://www.espboards.dev/esp32/esp32doit-devkit-v1/). I also referred to the datasheet for the [ESP32-D0WD-V3](https://documentation.espressif.com/esp32_datasheet_en.pdf).
 5. I also used [LearnESP32](https://learnesp32.com/) as a point of reference for introducing me to some of the kinds of things I could do and may want to do with the specific dev board I had. These were nice because it uses ESP IDF which uses FreeRTOS and I wanted to get practice with RTOS.
 6. Built out the project on the breadboard.
 7. Wrote the code for the project.
@@ -56,7 +56,7 @@ These are the things I did as a part of the process for working on this, not str
 
 <center>
 
-| Dev Board    | DOIT ESP32 DEVKIT V1          |
+| Dev Board    | DOIT ESP32 DevKit v1          |
 | :----------- | :---------------------------- |
 | Model        | ESP-WROOM-32                  |
 | Chip         | ESP32-D0WD-V3 (revision v3.1) |
@@ -67,7 +67,7 @@ These are the things I did as a part of the process for working on this, not str
 
 </center>
 
-> More specs for the dev board can be found [here](https://www.espboards.dev/esp32/esp32doit-devkit-v1/). I just listed the ones that I remember mattering for me when I was developing.
+> I just listed the ones that I remember mattering for me when I was developing.
 
 ## Pins
 
@@ -81,7 +81,41 @@ These are the pins I used:
 - `D32` `GPIO32` - Ochre Wire to LED
 - `D34` `GPIO34` - Grey Wire to Button
 
-> I decided to use `D34` `GPIO34` for the button since is in an input only pin.
+### Considerations
+
+Some considerations I made when designing the project.
+
+#### Input-Only Pins
+
+GPIOs `34`, `35`, `36`, and `39` on the ESP32 are input-only meaning they lack output drivers and internal pull-up/pull-down resistors. I assigned the button to `GPIO34` for a few reasons:
+
+1. In my mind, the button was input only, so I might as well just wire it to an input-only pin. I figured it might also eliminate an opportunity for error (misconfiguring it as an output).
+2. This occurred to me later, but I imagine in larger projects it could be a good way to preserve the output-capable pins for components that need that capability.
+
+It wasn't an issue for me to just use an external resistor for the pull-down. I had already wired it that way before I realized the ESP32 had internal pull-up/pull-downs as an option.
+
+#### Maximum Ratings
+
+The ESP32 has both per-pin and per-power-domain current limits. For this specific project it turned out to not be an issue since I don't use too many components or pins and in reality only 2 LEDs are ever on at any given time.
+
+The ESP32 has GPIO pins that are split across three internal power domains:
+
+1. `VDD3P3_CPU`
+   - CPU and its peripherals.
+2. `VDD3P3_RTC`
+   - Always-on/deep-sleep.
+3. `VDD_SDIO`
+   - SPI flash interface.
+
+Each of these are fed by its own `VDD` pin on the silicon. These 3 `VDD` pins are tied together externally and powered from the on-board `3.3V LDO` regulator that converts USB-C `5V` input to `3.3V` for each power rail. The `VIN`, being `5V` is fed by the USB-C's `5V`, typically through some component to prevent reverse current.
+
+So the USB-C `5V` is fed to `VIN` and the `3.3V LDO` regulator which steps down the USB-C `5V` to `3.3V` for the `VDD` pins which then feeds to the aforementioned rails which each feed into different subsets of the GPIO pins on the dev board.
+
+PPer the ESP32 Datasheet, at maximum drive strength, a single pin can source up to `40 mA` (CPU/RTC domains) or `20 mA` (SDIO domain), and sink up to `28 mA`. There is a footnote about how as more pins in the same domain source current simultaneously, the available per-pin current drops. So collective load on a particular power-domain is something to consider as well. Not a huge deal for this project but, good to be aware of.
+
+For `pop-the-led`, I used a 330 Ω resistor per LED. Standard red LEDs have a forward voltage drop of roughly `2V` so the resistor consumes `3.3V - 2V = 1.3V` across it, giving a current of `I = 1.3V / 330 Ω ≈ 4 mA` per LED. This is around 10% of the per-pin maximum and 33% of the conservative `12 mA` current that is a recommended guideline for sustained operation.
+
+For projects that require larger amounts of current, it could be helpful to distribute components across the power-rails to manage the per-power-domain current loads.
 
 ## Diagrams
 
@@ -104,7 +138,7 @@ Coming soon...
 Bill of Materials:
 
 - `1x` Breadboard
-- `1x` DOIT ESP32 DEVKIT V1
+- `1x` DOIT ESP32 DevKit v1
 - `6x` Red LED
 - `1x` Large Tactile Button
 - `1x` Button Cap

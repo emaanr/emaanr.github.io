@@ -15,11 +15,13 @@ const { Content, headings } = await render(post);
 
 const updated = formatDate(post.data.updated);
 const created = formatDate(post.data.created);
+
+const currentCrumb = post.data.title ?? post.data.name;
 ---
 
 <Layout>
   <article id="post">
-    <BreadcrumbsLayout>
+    <BreadcrumbsLayout currentCrumb={currentCrumb}>
       <div class="markdown">
         <div id="metadata">
           <span class="label">Updated:</span>
