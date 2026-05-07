@@ -35,7 +35,7 @@ These are the things I did as a part of the process for working on this, not str
 1. Figure out the components I needed and why (like what resistor values do I need and why) and then bought anything I didn't already have.
 2. Review and learn some of the concepts behind the electronics at play. I followed the first 8 chapters covered by these lectures: [Basic Electronics with Joe Gryniuk](https://theblowtorchofparma.com/basic-electronics.htm). They are pretty old but the teaching style was enjoyable and clear.
 3. Reviewed the C programming language since I hadn't really used it since undergrad ~3-4 years ago. I needed to clarify my understanding of pointers, memory, stack, heap, etc. Planning to post my notes on that too hopefully.
-4. Reviewed the specific ESP32 dev board I was using. Eventually I found this really nice reference: [DOIT ESP32 DevKit v1](https://www.espboards.dev/esp32/esp32doit-devkit-v1/). I also referred to the datasheet for the [ESP32-D0WD-V3](https://documentation.espressif.com/esp32_datasheet_en.pdf).
+4. Reviewed the specific ESP32 dev board I was using with a convenient reference[^1] I found and the datasheet[^2].
 5. I also used [LearnESP32](https://learnesp32.com/) as a point of reference for introducing me to some of the kinds of things I could do and may want to do with the specific dev board I had. These were nice because it uses ESP IDF which uses FreeRTOS and I wanted to get practice with RTOS.
 6. Built out the project on the breadboard.
 7. Wrote the code for the project.
@@ -111,7 +111,7 @@ Each of these are fed by its own `VDD` pin on the silicon. These 3 `VDD` pins ar
 
 So the USB-C `5V` is fed to `VIN` and the `3.3V LDO` regulator which steps down the USB-C `5V` to `3.3V` for the `VDD` pins which then feeds to the aforementioned rails which each feed into different subsets of the GPIO pins on the dev board.
 
-PPer the ESP32 Datasheet, at maximum drive strength, a single pin can source up to `40 mA` (CPU/RTC domains) or `20 mA` (SDIO domain), and sink up to `28 mA`. There is a footnote about how as more pins in the same domain source current simultaneously, the available per-pin current drops. So collective load on a particular power-domain is something to consider as well. Not a huge deal for this project but, good to be aware of.
+Per the ESP32 Datasheet, at maximum drive strength, a single pin can source up to `40 mA` (CPU/RTC domains) or `20 mA` (SDIO domain), and sink up to `28 mA`. There is a footnote in the datasheet about how as more pins in the same domain source current simultaneously, the available per-pin current drops. So collective load on a particular power-domain is something to consider as well. Not a huge deal for this project but, good to be aware of.
 
 For `pop-the-led`, I used a 330 Ω resistor per LED. Standard red LEDs have a forward voltage drop of roughly `2V` so the resistor consumes `3.3V - 2V = 1.3V` across it, giving a current of `I = 1.3V / 330 Ω ≈ 4 mA` per LED. This is around 10% of the per-pin maximum and 33% of the conservative `12 mA` current that is a recommended guideline for sustained operation.
 
@@ -145,6 +145,10 @@ Bill of Materials:
 - `x6` 330 Ω Resistors
 - `x1` 10 kΩ Resistor
 - `x11` Wires
+
+[^1]: [DOIT ESP32 DevKit v1 Reference](https://www.espboards.dev/esp32/esp32doit-devkit-v1/)
+[^2]: [ESP32-D0WD-V3 Datasheet](https://documentation.espressif.com/esp32_datasheet_en.pdf)
+
 
 {/*
 # Concepts

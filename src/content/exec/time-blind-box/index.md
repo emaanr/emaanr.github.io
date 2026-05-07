@@ -11,4 +11,6 @@ tz: "America/New_York"
 
 # Time Blind Box
 
-To be updated soon...
+To be updated soon...[^1]
+
+[^1]: [MPU-6050 Register Map](https://invensense.com/wp-content/uploads/2015/02/MPU-6000-Register-Map1.pdf)

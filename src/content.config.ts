@@ -5,20 +5,26 @@ import { z } from 'astro/zod'
 const tz = z.enum(["America/New_York"]);
 
 const tags = z.enum([
+  // Web
   'Web',
   'JavaScript',
   'TypeScript',
   'Vue',
+  // Embedded
   'Embedded',
-  'C',
-  'Linux',
-  'Electronics',
   'ESP32',
   'FreeRTOS',
+  'Electronics',
+  // OS
+  'C',
+  'Linux',
+  // Mobile
   'Mobile',
   'Android',
   'Kotlin',
-  'Jetpack Compose'
+  'Jetpack Compose',
+  // Other
+  'Photography'
 ])
 
 const execProjects = defineCollection({
