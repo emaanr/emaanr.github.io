@@ -33,8 +33,10 @@ const years = Object.keys(grouped)
           const { Content } = await render(thought);
           return (
             <Entry variant="thought">
-              <Content />
-              <span style="font-size: 0.8rem;">{formatDateTime(thought.data.created, thought.data.tz)}</span>
+              <div class="markdown">
+                <Content />
+              </div>
+              <span>{formatDateTime(thought.data.created, thought.data.tz)}</span>
             </Entry>
           );
         })}

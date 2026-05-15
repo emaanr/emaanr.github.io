@@ -24,7 +24,8 @@ const tags = z.enum([
   'Kotlin',
   'Jetpack Compose',
   // Other
-  'Photography'
+  'Photography',
+  'Gaming'
 ])
 
 const execProjects = defineCollection({

@@ -11,7 +11,7 @@ tags: [Mobile, Android, Kotlin, Jetpack Compose]
 tz: "America/New_York"
 ---
 
-> Project repo: [cashe](https://github.com/emaanr/cashe).
+> Project repo: <a href="https://github.com/emaanr/cashe" target="_blank" rel="noopener noreferrer">cashe</a>.
 
 # Cashe
 
@@ -23,11 +23,11 @@ The idea is that the user sets a budget, or `cashe`, for `n` amount of days. On 
 
 There will be a bar whose full length represents the budget amount. As the user adds purchases the bar fills up with the purchases so the user can visually see what amount of their budget they have utilized. Each `account` has a `color` associated with it so the bar items are color-coded as well.
 
-When the user hits the "Pay" button on any purchase, it subtracts the amount from the `cashe` budget at the top of "Cashe" screen. This can go into negative. When the `cashe` goes into negative, the bar gets a second page where all overflow purchases are red in color to quickly signal the negative balance and negative balance purchases.
+When the user hits the "Pay" button on any purchase, it subtracts the amount from the `cashe` budget at the top of "Cashe" screen. This can go into negative. When the cumulative total of purchases exceeds the `cashe` budget, the bar gets a second page where all overflow purchases are red in color to quickly signal the existence of overflow balance purchases.
 
 There will be a "Schedule" feature that allows users to schedule re-fills to the `cashe` on a particular date.
 
-There will also be a "Memory" screen that functions the same as the "Cashe" screen except it swaps out today's date for a date range picker, and the "Schedule" gets swapped out for a Search & Filter feature. This page is supposed to serve as a ledger of sorts to review spending over set time frames.
+There will also be a "Memory" screen that functions the same as the "Cashe" screen except it swaps out today's date for a date range picker, and the "Schedule" gets swapped out for a "Search & Filter" feature. This page is supposed to serve as a ledger of sorts to review spending over set time frames.
 
 # To Be Continued...
 

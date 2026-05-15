@@ -50,7 +50,7 @@
   em {}
   del {} 
   a {} */
-  p + p, p + ul, p + ol {
+  p + p, p + ul, p + ol, ul + p, ol + P {
     margin-top: 0.5rem;
   }
 
