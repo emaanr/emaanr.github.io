@@ -1,24 +1,24 @@
 ---
 draft: false
 name: Pop The LED
-description:
-  Pop the Lock but with LEDs.
+description: Pop the Lock but with LEDs.
 image: ./image.png
 repo: https://github.com/emaanr/pop-the-led
-created: 2026-04-30T00:00:00
+created: 2026-04-01T00:00:00
 updated: 2026-04-30T00:00:00
 tags: [Embedded, Electronics, FreeRTOS, ESP32, C]
 tz: "America/New_York"
 ---
 
-import breadboard from './breadboard.svg';
-import schema from './schema.svg';
+import MK from "@components/ui/MK.astro";
+import breadboard from "./breadboard.svg";
+import schema from "./schema.svg";
 
-> Project repo: [pop-the-led](https://github.com/emaanr/pop-the-led).
+> Project repo: <a href="https://github.com/emaanr/pop-the-led" target="_blank" rel="noopener noreferrer">pop-the-led</a>.
 
 # Pop The LED
 
-Idea my <a class="mk" href="https://mikail-khan.com" target="_blank" rel="noopener noreferrer">friend</a> pitched to me as a way to make blinking an LED with a button a bit more interesting/motivating. Essentially just a line of LEDs on a breadboard where:
+Idea my <MK href="https://mikail-khan.com">friend</MK> pitched to me as a way to make blinking an LED with a button a bit more interesting/motivating. Essentially just a line of LEDs on a breadboard where:
 
 1. One LED called the `target` gets dimly lit at random.
 2. There is a brightly lit `cursor` that is oscillating on the line of LEDs.
@@ -26,17 +26,17 @@ Idea my <a class="mk" href="https://mikail-khan.com" target="_blank" rel="noopen
 
 # Intro
 
-I've been trying to teach myself embedded so this is a blogpost about the first small embedded project I did. There was a lot I needed to review and learn to _really_ feel like I understood what I was doing. Last year I tried to do some bare-metal programming on STM32 but didn't get very far. I was watching a tutorial and didn't know what a bus was exactly so I looked it up and then just had more questions the more I got into it. I wrote a big info-dump-markdown-notes-draft thing but didn't finish it. I want to refine and post it sometime. I also did some breadboarding with a friend one day last year when we were hanging out so I had _some_ background, but not a ton. Largely I felt like I was at a point where I had a vague impression of many of these things but not a concrete understanding and I wanted to fix that.
+I've been trying to teach myself embedded so this is a blogpost about the first small embedded project I did. There was a lot I needed to review and learn to _really_ feel like I understood what I was doing. Last year I tried to do some bare-metal programming on STM32 but didn't get very far. I was watching a tutorial and didn't know what a bus was exactly so I looked it up and then just had more questions the more I got into it. I wrote a big info-dump-markdown-notes-draft thing but didn't finish it. I want to refine and post it sometime. I also did some breadboarding with a <MK href="https://mikail-khan.com">friend</MK> one day last year when we were hanging out so I had _some_ background, but not a ton. Largely I felt like I was at a point where I had a vague impression of many of these things but not a concrete understanding and I wanted to fix that.
 
 # Process
 
 These are the things I did as a part of the process for working on this, not strictly in this order, but roughly:
 
 1. Figure out the components I needed and why (like what resistor values do I need and why) and then bought anything I didn't already have.
-2. Review and learn some of the concepts behind the electronics at play. I followed the first 8 chapters covered by these lectures: [Basic Electronics with Joe Gryniuk](https://theblowtorchofparma.com/basic-electronics.htm). They are pretty old but the teaching style was enjoyable and clear.
+2. Review and learn some of the concepts behind the electronics at play. I followed the first 8 chapters covered by these lectures: <a href="https://www.youtube.com/playlist?list=PLci1z6T79sno-LLT_Y4B1q7TY1x84QCC8" target="_blank" rel="noopener noreferrer">Basic Electronics with Joe Gryniuk</a>. They are pretty old but the teaching style was enjoyable and clear.
 3. Reviewed the C programming language since I hadn't really used it since undergrad ~3-4 years ago. I needed to clarify my understanding of pointers, memory, stack, heap, etc. Planning to post my notes on that too hopefully.
-4. Reviewed the specific ESP32 dev board I was using with a convenient reference[^1] I found and the datasheet[^2].
-5. I also used [LearnESP32](https://learnesp32.com/) as a point of reference for introducing me to some of the kinds of things I could do and may want to do with the specific dev board I had. These were nice because it uses ESP IDF which uses FreeRTOS and I wanted to get practice with RTOS.
+4. Reviewed the specific ESP32 dev board I was using with a convenient reference[^1] I found, this YouTube video[^2], and the datasheet[^3].
+5. I also used <a href="https://learnesp32.com/" target="_blank" rel="noopener noreferrer">LearnESP32</a> as a point of reference for introducing me to some of the kinds of things I could do and may want to do with the specific dev board I had. These were nice because it uses ESP IDF which uses FreeRTOS and I wanted to get practice with RTOS.
 6. Built out the project on the breadboard.
 7. Wrote the code for the project.
 8. Popped the LED!
@@ -123,11 +123,15 @@ Project diagrams.
 
 ### Breadboard
 
-<center><img src={breadboard.src} width="800" style={{ background: 'var(--ink-500)', padding: '1rem' }} /></center>
+<center>
+  <img src={breadboard.src} width="800" style={{ background: "var(--ink-500)", padding: "1rem" }} />
+</center>
 
 ### Schematics
 
-<center><img src={schema.src} width="800" style={{ background: 'var(--ink-500)', padding: '1rem' }} /></center>
+<center>
+  <img src={schema.src} width="800" style={{ background: "var(--ink-500)", padding: "1rem" }} />
+</center>
 
 ## Demo
 
@@ -146,63 +150,17 @@ Bill of Materials:
 - `x1` 10 kΩ Resistor
 - `x11` Wires
 
-[^1]: [DOIT ESP32 DevKit v1 Reference](https://www.espboards.dev/esp32/esp32doit-devkit-v1/)
-[^2]: [ESP32-D0WD-V3 Datasheet](https://documentation.espressif.com/esp32_datasheet_en.pdf)
+[^1]:
+    <a href="https://www.espboards.dev/esp32/esp32doit-devkit-v1/" target="_blank" rel="noopener noreferrer">
+      DOIT ESP32 DevKit v1 Reference
+    </a>
 
+[^2]:
+    <a href="https://www.youtube.com/watch?v=n19DJIPB1sE" target="_blank" rel="noopener noreferrer">
+      ESP32 DevKit Explained
+    </a>
 
-{/*
-# Concepts
-
-## Hardware Fundamentals
-
-### GPIO Modes
-### Strapping Pins
-### Resistors
-#### Current-Limiting Resistors
-#### Pulldown Resistors
-### Debounce
-
-## PWM
-
-### Duty Cycle & Frequency
-### LEDC
-
-## Real-Time Operating Systems
-
-### RTOS
-#### Preemptive Scheduling
-### Tasks
-#### Task Pinning
-### SMP
-### Scheduler
-### Context Switching
-
-## Synchronization Primitives
-
-### Mutex
-### Semaphore
-#### Binary vs Counting
-### Producer/Consumer Pattern
-
-## Concurrency Hazards
-
-### Race Conditions
-### Deadlock
-### Critical Sections
-### Atomicity vs Freshness
-
-## Interrupts
-
-### ISR
-#### Interrupt Context vs Task Context
-#### IRAM_ATTR
-#### portYIELD_FROM_ISR
-### Edge-Trigger vs Level-Trigger
-
-## Toolchain & Debugging
-
-### ESP-IDF
-### Cross-Compilation
-### UART Serial Debugging
-### Brownout Detector
-*/}
+[^3]:
+    <a href="https://documentation.espressif.com/esp32_datasheet_en.pdf" target="_blank" rel="noopener noreferrer">
+      ESP32 Series Datasheet
+    </a>

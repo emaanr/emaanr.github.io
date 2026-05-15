@@ -9,8 +9,8 @@ tags: [Embedded, Electronics, FreeRTOS, ESP32, C]
 tz: "America/New_York"
 ---
 
+> Project repo: <a href="https://github.com/emaanr/time-blind-box" target="_blank" rel="noopener noreferrer">time-blind-box</a>.
+
 # Time Blind Box
 
-To be updated soon...[^1]
-
-[^1]: [MPU-6050 Register Map](https://invensense.com/wp-content/uploads/2015/02/MPU-6000-Register-Map1.pdf)
+To be updated soon...

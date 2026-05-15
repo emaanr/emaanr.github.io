@@ -1,0 +1,16 @@
+---
+const { href } = Astro.props;
+---
+
+<a class="mk" {href} target="_blank" rel="noopener noreferrer" data-warning=" (light mode warning)"><slot /></a>
+
+<style>
+  .mk::after {
+    content: attr(data-warning);
+    color: var(--slate-400);
+    display: none;
+  }
+  .mk:hover::after {
+    display: inline;
+  }
+</style>
