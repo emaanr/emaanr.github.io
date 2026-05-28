@@ -2,11 +2,12 @@
 draft: false
 title: I2C
 created: 2026-05-07T00:00:00
-updated: 2026-05-14T00:00:00
+updated: 2026-06-17T00:00:00
 tags: [Embedded]
 tz: "America/New_York"
 ---
 
+import MK from "@components/ui/MK.astro";
 import topology from "./topology.png"
 import opendrain from "./opendrain.png"
 import pullup from "./pullup.png"
@@ -20,7 +21,362 @@ import transaction from "./transaction.png"
 import write from "./write.png"
 import read from "./read.png"
 
-> I rewrote this like 3 times over the course of 7 days and spent way too long on these diagrams so hopefully this is up to snuff.
+{/*
+# Speed
+
+<center>
+| Abrev. | Mode       | Speed    | Bus Dir. |
+|:------:|-----------:|:---------|:--------:|
+|  `Sm`  | Standard   | 100 kbps |    Bi    |
+|  `Fm`  | Fast       | 400 kbps |    Bi    |
+|  `Fm+` | Fast Plus  | 1 Mbps   |    Bi    |
+|  `Hs`  | High Speed | 3.4 Mbps |    Bi    |
+|  `UFm` | Ultra Fast | 5 Mbps   |    Uni   |
+</center>
+
+- I2C can operate at different bus speeds, referred to as modes.
+- Hardware is specified as compliant to the max mode it can theoretically achieve.
+
+## Bidirectional
+
+### Sm
+
+### Fm
+
+#### Modifications
+
+### Fm+
+
+#### Modifications
+
+### Hs
+
+#### Modifications
+
+##### Handoff Protocol
+
+## Mixed-Speed Buses
+
+### Sm/Fm/Fm+
+
+### Hs
+
+## Unidirectional
+
+### UFm
+*/}
+
+{/*
+
+## Conditioning
+
+### Input
+
+#### Spike Suppression
+
+#### Shmitt Trigger
+
+##### Hysteresis
+
+### Output
+
+#### Slope Control
+
+## Conditioning
+
+- "Conditioning" refers to the hardware techniques used to keep signals clean enough to be read reliably at higher bus speeds.
+- The I2C spec does not group these as a named category, but in broader electronics design they are collectively part of _signal integrity_, the practice of keeping signals clean enough to be read reliably.
+- At `Sm` speeds, signal timing is loose enough that conditioning is not strictly required.
+- Starting with `Fm`, the spec mandates conditioning to support tighter timing tolerances.
+- Conditioning techniques fall into two categories:
+  - Input Conditioning:
+    - Rejecting noise and ambiguity on incoming signals.
+  - Output Conditioning:
+    - Emitting clean signals that don't cause problems on the bus.
+
+### Input
+
+- "Input Conditioning" is about how a device handles the signals it receives. The goal is to reject noise and ambiguity so that the device only registers genuine transitions on `SDA` and `SCL`.
+- The spec mandates two input conditioning techniques starting with `Fm`:
+  1. Spike Suppression
+  2. Schmitt Trigger
+
+#### Spike Suppression
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.1):
+> - "The inputs of Fast-mode devices incorporate spike suppression and a Schmitt trigger at the SDA and SCL inputs."
+
+- "Spike Suppression" uses a filter circuit on the input stage of `SDA`/`SCL` that rejects brief voltage glitches on the line.
+- Without spike suppression, brief noise spikes (caused by electromagnetic interference, crosstalk from nearby signals, or power supply transients) could be misread as real transitions on the bus.
+- At `Sm` speeds, the bit timing is long enough that a brief noise spike is unlikely to be mistaken for a real signal.
+- At `Fm` and faster speeds, bit timing tightens up to the point where the device needs to actively filter out short glitches.
+- The spec defines the filter parameter as `tSP`:
+  - The maximum pulse width that must be suppressed. Any pulse shorter than this gets filtered out and never reaches the device's I2C logic.
+
+#### Schmitt Trigger
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §3.1.2):
+> - "Input reference levels are set as 30% and 70% of VDD; VIL is 0.3VDD and VIH is 0.7VDD"
+
+- "Schmitt Trigger" is an input circuit that uses two different voltage thresholds:
+  1. `VIH`: "Voltage Input High"
+     - Higher threshold recognizes a `LOW` → `HIGH` transition.
+  2. `VIL`: "Voltage Input Low"
+     - Lower threshold recognizes a `HIGH` → `LOW` transition.
+- The two thresholds create a "dead zone" between 30% and 70% of `VDD` where the input does not change state. This is what gives the Schmitt Trigger its noise-rejection property.
+- Particularly important on I2C because the pull-up rise times can be slow.
+  - Without a Schmitt Trigger, a slowly-rising line hovering near a single threshold would cause the input to flip-flop rapidly, generating false transitions.
+
+##### Hysteresis
+
+- "Hysteresis" is the property of a system where its output depends not just on the current input but also on the history of past inputs.
+- For a Schmitt Trigger specifically, hysteresis means:
+  - Once `HIGH` is recognized, the output stays `HIGH` until the input falls below the lower threshold.
+  - Once `LOW` is recognized, the output stays `LOW` until the input rises above the upper threshold.
+- This is why Schmitt Triggers reject noise on slowly-changing signals. Even if a noisy signal oscillates around the upper threshold, it cannot cause repeated state changes because the output is "locked" to `HIGH` until the signal falls below the lower threshold.
+
+### Output
+
+- "Output Conditioning" is about controlling the _steepness_ of the falling edge when a device pulls `SDA`/`SCL` lines `LOW`.
+- Without output conditioning, devices pull lines `LOW` as fast as their internal transistors allow, producing very sharp falling edges that create two problems:
+  1. Electromagnetic Interference (EMI)
+     - Fast voltage changes can create interference for nearby circuits.
+  2. Ringing:
+     - Voltage oscillations on the line after a fast transition, which other devices may misread as additional transitions.
+- The spec mandates one output conditioning technique starting with `Fm`:
+  1. Slope Control.
+
+#### Slope Control
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.1):
+> - "The output buffers of Fast-mode devices incorporate slope control of the falling edges of the SDA and SCL signals."
+
+- A circuit on the output buffer that deliberately controls how quickly the device pulls `SDA`/`SCL` lines `LOW`.
+- Slope control limits the falling edge to a controlled rate, reducing both "EMI" and "Ringing".
+- Slope control only applies to _falling_ edges. Rising edges are governed by the pull-up resistor and bus capacitance (see [Pull-Up](#pull-up)).
+  - The device's only handle on the signal edge is the falling edge where it is actively _driving_ the line.
+- `Sm` does not mandate slope control because its slower timing tolerates noisier edges.
+- `Fm` and faster modes mandate it because the tighter timing means "EMI" and "Ringing" become real problems.
+
+## Bidirectional
+
+> Per the spec (<a href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf" target="_blank" rel="noopener noreferrer">UM10204</a> §5):
+> - "Standard-mode, Fast-mode (Fm), Fast-mode Plus (Fm+), and High-speed mode (Hs-mode) devices are downward-compatible — any device may be operated at a lower bus speed."
+
+- In bidirectional modes, data flows in both directions on `SDA`.
+  - Both the controller and the target can act as sender or receiver depending on the transaction.
+- All four bidirectional modes (`Sm`, `Fm`, `Fm+`, `Hs`) share the same protocol family. Everything covered earlier in this document applies to them:
+  - [Open-Drain Signaling](#open-drain)
+  - [Wired-AND Logic](#wired-and-logic)
+  - [Bus Arbitration](#bus-arbitration)
+  - [Clock Stretching](#clock-stretching)
+  - [ACK/NACK Handshaking](#acknack-bit)
+  - [9-bit Frame Structure](#frame)
+- Where they differ is speed and some electrical/timing details to support those higher speeds.
+- Bidirectional modes are downward-compatible, meaning faster devices can operate at any slower speed, but _not_ the other way around.
+  - This is what makes [mixed-capability buses](#mixed-speed-buses) work. Faster devices drop down their speeds to match slower ones in order to coexist on the same I2C bus configured at a speed that accommodates all the devices on it.
+
+### Sm
+
+- Stands for "Standard-mode" and is the original I2C speed of 100 kbps, introduced in 1982.
+- The baseline that all other modes are measured against.
+- Every protocol concept covered earlier in this document was originally defined for `Sm`.
+
+### Fm
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.1):
+> - "The protocol, format, logic levels and maximum capacitive load for the SDA and SCL lines are the same as the Standard-mode I2C-bus specification."
+
+- Stands for "Fast-mode" and supports a maximum bit rate of 400 kbps, introduced in 1992.
+- Fully backward-compatible with `Sm`.
+  - Same protocol, same data format, same logic levels, same electrical characteristics.
+- Practically, `Fm` is `Sm` running 4× faster with tighter timing tolerances.
+  - The only changes are electrical refinements (spike suppression, Schmitt triggers, slope control) to support the higher speed cleanly.
+
+### Fm+
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.2):
+> - "Fm+ devices can transfer information at bit rates of up to 1 Mbit/s, yet they remain fully downward compatible with Fast- or Standard-mode devices for bidirectional communication in a mixed-speed bus system. The same serial bus protocol and data format is maintained as with the Fast- or Standard-mode system."
+
+- Stands for "Fast-mode Plus" and supports a maximum bit rate of 1 Mbps, introduced in 2007.
+- Fully backward-compatible with `Fm` and `Sm`.
+- Introduces electrical changes only, the protocol and data format are unchanged from `Fm`/`Sm`.
+
+#### Modifications
+
+*/}
+
+{/* 1. Stronger Output Drivers
+  - Up to 10x the drive current of `Fm` and `Sm`.
+  - Stronger drivers provide some additional capabilities that support `Fm+`-mode:
+    1. 
+
+
+
+
+
+
+     1. Tolerance for Higher Bus Capacitance
+        - Every I2C bus has some capacitance from its physical wires (PCB traces, ribbon cables, board-to-board connections) and connected devices. As capacitance increases, signal transitions slow down.
+        - `Fm+`'s stronger drivers pull these heavier loads `LOW` quickly enough to maintain `Fm+` timing, even on buses with significantly more capacitance than `Fm` or `Sm` could handle.
+        - High-capacitance buses also need smaller pull-up resistors to keep the rising edges fast enough, since rise time is governed by the RC time constant of the bus: τ = R × C, where R is the pull-up resistance and C is the bus capacitance. Smaller R means faster rise.
+        - The tradeoff: smaller pull-ups push more current through the device when it pulls the line `LOW`. `Fm+`'s stronger drivers can sink this extra current — up to 20 mA, per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) Table 10), vs. 3 mA for `Sm`/`Fm`. The current only flows during transitions, so the average power impact is usually small.
+
+2. Stronger Output Drivers
+   - Up to 10x the drive current of `Fm` and `Sm`.
+   - Can pull lines `LOW` faster, which has two consequences:
+     1. Higher Bit Rates
+        - Faster falling edges make shorter clock periods possible, meaning more clocks are possible for a stretch of time, allowing the higher 1 Mbps bit rate.
+     2. Tolerate Higher Bus Capacitance
+        - Tolerates larger capacitance loads without slowing down the falling edge (pulling the signal down).
+          - This means it can tolerate capacitance introducing factors like longer wiring (PCB traces, ribbon cables, or board-to-board connections) and more devices on the bus.
+        - Tolerates smaller pull-up resistors.
+          - High-capacitance buses need smaller pull-ups to keep the rising edges (pulling the signal up) fast enough.
+          -  Rise time is governed by the RC time constant of the bus, where R is the pull-up resistance and C is the total bus capacitance:
+             -  τ = R × C
+          -  Smaller pull-ups push more current through the device when it pulls the line `LOW`, which `Fm+` devices can sink.
+          - The tradeoff is increased current consumption when pulling lines `LOW`. This is a direct consequence of the smaller pull-up resistors discussed above — smaller R means more current flows from `VDD` through the pull-up to the device sinking the line `LOW`.
+        > Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) Table 10):
+        > "Fm+ devices can sink up to 20 mA (vs. 3 mA for `Sm`/Fm). The current only flows during transitions, so the average power impact is usually small."
+*/}
+
+{/* ### Hs
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.3):
+> - "Hs-mode devices can transfer information at bit rates of up to 3.4 Mbit/s...With the exception that arbitration and clock synchronization is not performed during the Hs-mode transfer, the same serial bus protocol and data format is maintained as with the F/S-mode system."
+>
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.3.5):
+> - "Arbitration between Hs-mode devices and F/S-mode devices is only performed during the controller code (0000 1XXX)."
+
+- Stands for "High-speed mode" and supports a maximum bit rate of 3.4 Mbps, introduced in 1998.
+- Fully backward-compatible with `Fm+`, `Fm`, and `Sm`.
+- Introduces protocol _and_ electrical changes.
+
+##### Handoff Protocol
+
+- `Hs` is the only mode that breaks the "bus runs at the slowest device's speed" rule and defines a protocol-level mechanism for switching between `F`/`S` speeds and `Hs` speeds within a single transaction.
+- Every `Hs` transaction begins at `F`/`S` speed with three things:
+  1. `START` Condition
+  2. 8-bit "Controller Code"
+     - One of the Reserved Addresses, `0000 1XXX`.
+  3. `NACK`
+     - No device is allowed to `ACK` the "Controller Code", so this is expected and not an error.
+- Slower devices (`Sm`, `Fm`, `Fm+`) recognize the "Controller Code", understand they are not the target, and stay quiet for the rest of the transaction.
+- The bus then switches to the `Hs` timing:
+  1. Repeated `START`
+  2. Target Address
+  3. Data at 3.4 Mbps
+  4. `STOP` Condition
+     - Switches bus back to `F`/`S` timing.
+- The "Controller Code" does double duty:
+  - It is the moment when arbitration happens, if at all.
+  - It signals that the next thing is going to be `Hs` speed.
+
+#### Modifications
+
+1. Current-Source Pull-Up on `SCL`
+   - In `F`/`S` modes, `SCL` rises `HIGH` passively via the pull-up resistor. In `Hs`, the controller actively drives `SCL` `HIGH` using a current source, which shortens the rise time.
+2. Asymmetric Clock
+   - The `Hs` clock has a 1:2 `HIGH`:`LOW` ratio.
+   - The `LOW` phase is twice as long as the `HIGH` phase, giving more time for `SDA` to transition and stabilize before being sampled.
+3. No Arbitration during `Hs` Phase
+   - Arbitration only happens during the `F`/`S` preamble.
+   - Once the controller wins, the `Hs` portion proceeds without arbitration since contention is no longer possible.
+
+## Mixed-Speed Buses
+
+- A "Mixed-Speed Bus" is an I2C bus with devices of different speed capabilities sharing the same physical bus lines.
+- The spec's "downward-compatible" guarantee is about device _capability_, not automatic protocol behavior.
+- There is no automatic speed negotiation in I2C beyond what `Hs` defines for itself.
+- The controller generates `SCL` at whatever speed it was configured for by the developer.
+- The developer is responsible for configuring the controller's clock speed correctly for how the devices on the mixed-speed bus are being used.
+- A faster device can operate at slower speeds, but the developer has to actually configure the bus correctly to achieve this.
+
+### Sm/Fm/Fm+
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.3.5):
+> - "The bus speed is always constrained to the maximum communication rate of the slowest device attached to the bus."
+
+- All three modes coexist on the same bus by running at the slowest device's speed for every transaction on that bus.
+  - For example, a mixed `Fm+`/`Sm` bus runs at 100 kbps (`Sm` speed).
+- For `Sm`/`Fm`/`Fm+` mixtures, there is no protocol-level mechanism for switching speeds across or within transactions automatically.
+  - If it is desirable for different transactions to run at different speeds, it is on the developer to manually reconfigure the controller's clock speed as per the device (target) it wants to communicate with between distinct transactions.
+- On the topic of developer responsibility, misconfiguring the clock speed in a mixed-speed bus system can cause _false starts_, where slower devices misinterpret transitions on the bus.
+  - For example, on a mixed `Fm+`/`Sm` bus pushed at full `Fm+` speed, a fast `START` Condition can look like a regular data transition to the `Sm` device that is not sampling fast enough.
+  - Configuring the bus at the slowest device's speed prevents this entirely.
+
+### Hs
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.3):
+> - "...Fully downward compatible with Fast-mode Plus, Fast- or Standard-mode (F/S) devices for bidirectional communication in a mixed-speed bus system."
+
+- `Hs` is the only mode where the protocol itself orchestrates speed switching, both within and between transactions.
+- This enables _true_ mixed-speed operation. Different transactions on the same bus can run at different speeds:
+  - An `Hs`↔`Hs` transaction runs at 3.4 Mbps.
+  - An `Hs`↔`F`/`S` transaction runs at the `F`/`S` device's max speed.
+- `Hs` avoids false starts entirely.
+  - Slower devices never see `Hs`-speed signaling because the controller code tells them to stay quiet before the bus switches to `Hs` timing.
+
+## Unidirectional
+
+> Per the spec (<a href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf" target="_blank" rel="noopener noreferrer">UM10204</a> §5):
+> - "Ultra Fast-mode devices are not compatible with previous versions since the bus is unidirectional."
+>
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §3.2):
+> - "Since UFm I2C-bus uses push-pull drivers, it does not have the multi-controller capability of the wired-AND open-drain Sm, Fm, and Fm+ I2C-buses."
+
+- In unidirectional modes, data flows in only one direction on `SDA` from the controller to the target.
+- Targets are receive-only. They cannot send data back, cannot `ACK`nowledge received data, and cannot stretch the clock.
+- This is a fundamental break from the bidirectional protocol family covered above. Many of the mechanisms that depend on bidirectional signaling do not exist in unidirectional modes:
+  - `ACK/NACK` Handshaking
+  - Bus Arbitration
+  - Wired-AND Logic
+  - Clock Stretching
+- Despite being part of the I2C specification, `UFm` shares little with the other modes beyond `START`/`STOP` Conditions and the 9-bit frame structure.
+
+### UFm
+
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §5.4):
+> - "Ultra Fast-mode (UFm) devices offer an increase in I2C-bus transfer speeds. UFm devices can transfer information at bit rates of up to 5 Mbit/s."
+> 
+> Per the spec ([UM10204](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) §3.2):
+> - "The 2-wire push-pull driver consists of a UFm serial clock (USCL) and serial data (USDA)."
+> - "The possibility of connecting more than one UFm controller to the UFm I2C-bus is not allowed due to bus contention on the push-pull outputs. If an additional controller is required in the system, it must be fully isolated from the other controller (that is, with a true 'one hot' MUX) as only one controller is allowed on the bus at a time."
+
+- Stands for "Ultra Fast-mode" and supports a maximum bit rate of 5 Mbps, introduced in 2012.
+- Not compatible with any other mode.
+- Introduces fundamental electrical _and_ protocol changes.
+
+#### Modifications
+
+1. Push-Pull Drivers on `USDA`/`USCL`
+   - `UFm` uses different bus lines than other modes:
+     - `USDA` (Ultra Fast Serial Data)
+     - `USCL` (Ultra Fast Serial Clock)
+   - Replaces open-drain with push-pull drivers:
+     - The controller actively drives both `USDA`/`USCL` `HIGH`/`LOW`.
+     - Breaks Wired-AND Logic and consequentially makes Bus Arbitration impossible.
+       - As a result, `UFm` is single-controller only, multi-controller buses are explicitly disallowed by the spec.
+2. Unidirectional Data Flow
+   - Data only flows from controller to target on `USDA`. Targets are receive-only.
+   - The `ACK/NACK` bit is preserved in the frame structure for compatibility but is meaningless. Targets never drive `USDA`, so the 9th bit of every frame is always `NACK` (released `HIGH`).
+   - Since targets cannot respond, the controller has no way to detect transmission errors at the protocol level.
+3. No Clock Stretching
+   - Targets cannot hold `USCL` `LOW` to pause the controller, they don't drive `USCL` at all.
+   - The controller has unconditional control of the clock.
+
+------------------------------------------------------------------
+*/}
+
+
+> `Rev. 2026-??-??`
+> - TODO: Planned revisions to Open-Drain/Pull-Up notes related to capacitance based on something my <MK href="https://mikail-khan.com">friend</MK> pointed out.
+>
+> `Rev. 2026-??-??`
+> - TODO: Planned <a href="https://github.com/emaanr/emaanr.github.io/commit/" target="_blank" rel="noopener noreferrer">some changes</a> thanks to <a href="https://lobste.rs/c/6h3egq" target="_blank" rel="noopener noreferrer">feedback</a>.
+> 
+> `Init. 2026-05-14`
+> - I rewrote this like 3 times over the course of 7 days and spent way too long on these diagrams so hopefully this is up to snuff.
 
 # I2C
 
@@ -39,7 +395,7 @@ import read from "./read.png"
 
 # Topology
 
-<center><img src={topology.src} width="800" style={{ paddingBottom: "1rem" }} /></center>
+<div class="overflow"><img src={topology.src} width="800" style={{ paddingBottom: "1rem" }} /></div>
 
 - There is always at least one controller and one target.
   - Commonly there is a single controller and one or more targets.
@@ -49,7 +405,7 @@ import read from "./read.png"
 
 ## Open-Drain
 
-<center><img src={opendrain.src} width="250" style={{ paddingBottom: "1rem" }} /></center>
+<div class="overflow"><img src={opendrain.src} width="250" style={{ paddingBottom: "1rem" }} /></div>
 
 - In I2C, `SDA` and `SCL` are idle-`HIGH`, meaning they are `HIGH` by default. As a result, I2C is considered an "Open-Drain" system.
   - When the drain is closed, `SDA` and `SCL` are pulled `LOW` (connected to ground).
@@ -81,8 +437,8 @@ import read from "./read.png"
 > And what if the controllers transmit _identical_ bits throughout the entire transaction?
 > - Neither one detects a conflict!
 > - Both see the bus matching what they sent on every bit, both believe they own the bus, and both complete their transactions successfully!
-> - The spec actually calls this out:
-> > Two controllers can actually complete an entire transaction without error, as long as the transmissions are identical.
+> > The spec actually calls this out (<a href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf" target="_blank" rel="noopener noreferrer">UM10204</a> §3.1.8):
+> > - "Two controllers can actually complete an entire transaction without error, as long as the transmissions are identical."
 > - This isn't a bug, it's a deliberate feature of the design. The target still receives one coherent transaction, the fact that two controllers were driving the bus is invisible and harmless because their signals to the target were identical.
 > - For other reasons I won't get into, the spec instructs that multi-controller systems should design their software protocol to avoid identical-transmission scenarios where possible, or accept that identical transactions are harmless duplicates.
 
@@ -90,30 +446,13 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 ## Pull-Up
 
-<center><img src={pullup.src} width="400" style={{ paddingBottom: "1rem" }} /></center>
+<div class="overflow"><img src={pullup.src} width="350" style={{ paddingBottom: "1rem" }} /></div>
 
 - Pulling _down_ a line is usually much faster than pulling _up_ a line.
 - Pull up time is a function of bus capacitance and values of the pull up resistors.
 - Typical values for these resistors is 1-10 kΩ. Pull up resistors are a compromise:
   - High resistances increase the time needed to pull up the line and thus limits max bus speed.
   - Lower resistances allow faster communications but require higher power.
-
-# Speed
-
-<center>
-| Mode       | Speed    |
-|-----------:|:---------|
-| Standard   | 100 kbps |
-| Fast       | 400 kbps |
-| Fast Plus  | 1 Mbps   |
-| High Speed | 3.4 Mbps |
-| Ultra Fast | 5 Mbps   |
-</center>
-
-- I2C can operate at different bus speeds, often referred to as modes.
-- Hardware is specified as compliant to the max mode it can theoretically achieve.
-- Ultra fast mode is write-only and makes some modifications to the protocol.
-- High speed mode devices are backwards compatible to lower speeds.
 
 # Roles
 
@@ -220,7 +559,7 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 ## Data Validity
 
-<center><img src={validity.src} width="400" /></center>
+<div class="overflow"><img src={validity.src} width="350" /></div>
 
 - "Data Validity" is the rule that governs data bit transmission.
 - The I2C specification defines "Data Validity" as:
@@ -237,21 +576,19 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 ### Start Condition
 
-<center><img src={start.src} width="300" /></center> 
+<div class="overflow"><img src={start.src} width="300" /></div> 
 
 - The "`START` Condition" occurs when `SDA` is pulled low when `SCL` is still `HIGH`.
 - After the "`START` Condition" occurs, `SCL` is pulled `LOW` and the transaction begins.
 
 ### Stop Condition
 
-<center><img src={stop.src} width="300" /></center>
+<div class="overflow"><img src={stop.src} width="300" /></div>
 
 - The "`STOP` Condition" occurs when `SDA` is released to `HIGH` when `SCL` is also `HIGH`.
 - After the "`STOP` Condition" occurs, the transaction is complete and the I2C bus is free to be claimed.
 
 ## Clock Stretching
-
-{/* <center><img src={stretching.src} width="400" /></center> */}
 
 - "Clock Stretching" is a mechanism that allows a target device to pause an I2C transaction by holding `SCL` `LOW`.
 - Normally the controller is in control of the clock `SCL`, it drives and the target responds.
@@ -265,7 +602,7 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 # Frame
 
-<center><img src={frame.src} width="700" /></center>
+<div class="overflow"><img src={frame.src} width="700" /></div>
 
 - A "Frame" can be defined as the basic unit of transmission in the I2C protocol, always comprised of 9 bits where the last bit is an `ACK/NACK` bit.
 - The term "Frame" isn't really "official" or used by the I2C spec, but is often used when making sense of I2C and talking about it.
@@ -275,7 +612,7 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 ## Target Address Frame
 
-<center><img src={target.src} width="350" /></center>
+<div class="overflow"><img src={target.src} width="350" /></div>
 
 - The "Target Address Frame" is always the _first_ frame to appear in any I2C transaction.
 - It determines which target will participate in the transaction and what kind of transaction will occur (Read/Write).
@@ -305,7 +642,7 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 ## Data Frame
 
-<center><img src={data.src} width="350" /></center>
+<div class="overflow"><img src={data.src} width="350" /></div>
 
 - The "Data Frame" contains the actual data payload of the I2C transaction.
 - The first "Data Frame" in an I2C transaction always immediately follows the "Target Address Frame".
@@ -327,7 +664,7 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 # Transaction
 
-<center><img src={transaction.src} width="955" style={{ paddingRight: "1.3rem" }} /></center>
+<div class="overflow"><img src={transaction.src} width="955" style={{ paddingRight: "1.3rem" }} /></div>
 
 - This diagram illustrates an I2C transaction at a glance.
 - A transaction always follows the same layout:
@@ -339,16 +676,18 @@ This becomes more clear as we explore these concepts later, so if this doesn't m
 
 # Write
 
-<center><img src={write.src} width="950" /></center>
+<div class="overflow"><img src={write.src} width="950" /></div>
 
 - This diagram specifically illustrates an I2C "Controller `WRITE`" and depicts whether the controller or target has set a bit on the data line `SDA`.
 
 ## Multiple Writes
 
+<div class="overflow">
 | `START` | Target Addr. | `W` | `ACK` | Data Byte | `ACK` | ... | Data Byte | `ACK` | `STOP` |
 |:-------:|:------------:|:---:|:-----:|:---------:|:-----:|:---:|:---------:|:-----:|:------:|
+</div>
 
-> Note that in contrast to the "Multiple Reads", in a string of `WRITE`s, the target is the setter of the `ACK/NACK` bit, and it does _not_ terminate the srting of `WRITE`s with a `NACK`, it just `ACK`s and `STOP`s. 
+> Note that in contrast to the "Multiple Reads", in a string of `WRITE`s, the target is the setter of the `ACK/NACK` bit, and it does _not_ terminate the string of `WRITE`s with a `NACK`, it just `ACK`s and `STOP`s. 
 
 ## Code
 
@@ -370,14 +709,16 @@ void write(uint8_t reg, uint8_t data) {
 
 # Read
 
-<center><img src={read.src} width="1000" /></center>
+<div class="overflow"><img src={read.src} width="1000" /></div>
 
 - This diagram specifically illustrates an I2C "Controller `READ`" and depicts whether the controller or target has set a bit on the data line `SDA`.
 
 ## Multiple Reads
 
+<div class="overflow">
 | `START` | Target Addr. | `R` | `ACK` | Data Byte | `ACK` | ... | Data Byte | `ACK` | Data Byte | `NACK` | `STOP` |
 |:-------:|:------------:|:---:|:-----:|:---------:|:-----:|:---:|:---------:|:-----:|:---------:|:------:|:------:|
+</div>
 
 > Note that in a string of `READ`s, the controller is the setter of the `ACK/NACK` bit, and it terminates the string of `READ`s with a `NACK`.
 
@@ -400,10 +741,12 @@ void read(uint8_t *buffer) {
 
 # Repeated Start
 
-- A normal transaction is `START` → Target Address → Data → `STOP`.
-- A "Repeated `START`" is when the controller issues another `START` without issuing a `STOP` first.
-- A "Repeated `START`" is only needed when switching transaction directions (Read/Write), otherwise you just concatenate data frames in the same transaction.
-- "Repeated `START`" allows the controller to maintain control over the bus without the risk of losing it to another controller if it had to `STOP` and then try to `START` again.
+- Typically an I2C transaction is: `START` → Target Address → Data → `STOP`.
+- A "Repeated `START`" is when the controller issues _another_ `START` at some point before it issues a `STOP` and releasing the I2C bus.
+- A "Repeated `START`" lets the controller switch what is is doing (change direction, change target, or both) without releasing the bus.
+  - This is critical when bus release would let another controller modify state in between sub-transactions
+- The most common use case is switching direction (Read/Write), but any scenario that needs atomicity across multiple sub-transactions can use it.
+- "Repeated `START`" allows the controller to maintain control over the bus without the risk of losing it to another controller if it instead had to `STOP` and then try to `START` again.
 - "Repeated `START`" lets you chain two transactions together atomically without ever releasing the I2C bus between them.
 
 ## Example
@@ -448,3 +791,9 @@ void app_main(void) {
   int16_t az = (raw[4] << 8 | raw[5]); // Accelerometer Z
 }
 ```
+
+{/** Speed goes here */}
+
+# Afterword
+
+Hopefully these notes provide enough information and background to make reading the <a href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf" target="_blank" rel="noopener noreferrer">UM10204: I2C-Bus Specification & User Manual</a> a bit more accessible! If I got anything wrong or there are any nuances I missed, I'm grateful if folks reach out to let me know at [hello@rana-emaan.com](mailto:hello@rana-emaan.com). Thanks for reading!

@@ -1,8 +1,6 @@
 ---
-import { formatDate, groupByYear } from "@utils";
-import Entries from "@components/app/Entries.astro";
-import Entry from "@components/app/Entry.astro";
-import Tags from "@components/ui/tags/Tags.astro";
+import { groupByYear } from "@utils";
+import Posts from "@components/pages/partials/Posts.astro";
 import type { CollectionEntry } from "astro:content";
 
 type Post = CollectionEntry<"readBlog"> | CollectionEntry<"readNotes">;
@@ -32,17 +30,7 @@ const years = Object.keys(grouped)
   years.map((year) => (
     <section class="year">
       <h1>{year}</h1>
-      <Entries bordered>
-        {grouped[year].map((post) => (
-          <Entry variant="post" href={`/read/${path}/${post.id}`}>
-            <div class="lhs">
-              <p>{post.data.title}</p>
-              <Tags tags={post.data.tags} />
-            </div>
-            <span>{formatDate(post.data.updated)}</span>
-          </Entry>
-        ))}
-      </Entries>
+      <Posts posts={grouped[year]} path={path} />
     </section>
   ))
 }
@@ -53,12 +41,5 @@ const years = Object.keys(grouped)
     flex-direction: column;
     gap: 0.25rem;
     margin-top: 1rem;
-  }
-
-  .lhs {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
   }
 </style>

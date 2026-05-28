@@ -1,0 +1,51 @@
+---
+import { formatDate } from "@utils";
+import Tags from "@components/ui/tags/Tags.astro";
+
+interface Props {
+  updated: Date;
+  created: Date;
+  tags?: string[];
+}
+
+const { updated, created, tags } = Astro.props;
+---
+
+<div id="metadata">
+  <div>
+    <span class="label">Updated:</span>
+    <span>{formatDate(updated)}</span>
+  </div>
+  <span class="sep">✱</span>
+  <div>
+    <span class="label">Created:</span>
+    <span>{formatDate(created)}</span>
+  </div>
+  {
+    tags && tags.length > 0 && (
+      <>
+        <span class="sep">✱</span>
+        <Tags tags={tags} />
+      </>
+    )
+  }
+</div>
+
+<style>
+  #metadata {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+
+  .label {
+    padding-right: 0.1rem;
+  }
+
+  .sep {
+    color: var(--red-400);
+    padding: 0 0.5rem;
+    font-size: 1.1rem;
+  }
+</style>

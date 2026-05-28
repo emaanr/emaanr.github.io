@@ -15,7 +15,7 @@ import mf from "./mf.png";
 
 # Persona 3 Reload on Windows 11 Debloat
 
-I recently decided I wanted to start playing _Persona 3 Reload_, so I went to my Steam library, as one does, to boot it up. Unfortunately, it wouldn't start. The Steam "PLAY" button went through the steps visually up until it shows as a blue "STOP X" button, and then it just went back to being a green "PLAY" button. Wouldn't even boot up the game window.
+I recently decided I wanted to start playing _Persona 3 Reload_, so I went to my Steam library, as one does, to boot it up. Unfortunately, it wouldn't start. The Steam [PLAY] button went through the steps visually up until it shows as a blue [STOP X] button, and then it just went back to being a green [PLAY] button. Wouldn't even boot up the game window.
 
 ## Microsoft Visual C++ Redistributable
 
@@ -29,9 +29,9 @@ I updated Windows 11, AMD GPU, and AMD CPU and rebooted.
 
 I tried running the `P3R.exe` directly with "Run an administrator". Upon doing so I actually got some error messages this time:
 
-<center>
+<div class="overflow">
   <img src={directx.src} width="900" style={{ paddingBottom: "1rem", paddingTop: "1rem" }} />
-</center>
+</div>
 
 Turns out these were missing DLL's from the legacy "DirectX End-User Runtime" package. I was missing these: `XAPOFX1_5.dll`, `X3DAudio1_7.dll`, `XINPUT1_3.dll`, `D3DCOMPILER_43.dll`. It turns out a lot of Japanese PC ports still rely on these runtime files from DirectX June 2010 ish. I went here: <a href="https://www.microsoft.com/en-us/download/details.aspx?id=8109" target="_blank" rel="noopener noreferrer">DirectX End-User Runtimes (June 2010)</a> and downloaded it temporarily to a folder in my Downloads (there are _A LOT_ of `.cab` files in the download). I did the following:
 
@@ -54,11 +54,11 @@ Turns out these were missing DLL's from the legacy "DirectX End-User Runtime" pa
 
 ### ResampleDmo
 
-After rebooting I tried running `P3R.exe` as an administrator again after hitting the "PLAY" button in Steam yielded the same behavior as before. This time I got a different error (which is progress!):
+After rebooting I tried running `P3R.exe` as an administrator again after hitting the [PLAY] button in Steam yielded the same behavior as before. This time I got a different error (which is progress!):
 
-<center>
+<div class="overflow">
   <img src={resampledmo.src} width="300" style={{ paddingBottom: "1rem", paddingTop: "1rem" }} />
-</center>
+</div>
 
 Turns out this is a standard Windows multimedia DLL that normally already exists in Windows. However... I ran this <a href="https://github.com/raphire/win11debloat" target="_blank" rel="noopener noreferrer">Windows 11 Debloat</a> script when I installed Windows on my PC because I hate bloat. So I needed to download a fresh Windows 11 ISO to mount and grab the missing DLL from. I did the following:
 
@@ -75,7 +75,7 @@ Turns out this is a standard Windows multimedia DLL that normally already exists
 
 ### UnrealEngine
 
-After rebooting I tried clicking on the "PLAY" button in Steam. This time the black screen for the game actually showed up and the program was in the bottom bar. The black screen was up for a few seconds before I got an UnrealEngine crash window and the game terminated.
+After rebooting I tried clicking on the [PLAY] button in Steam. This time the black screen for the game actually showed up and the program was in the bottom bar. The black screen was up for a few seconds before I got an UnrealEngine crash window and the game terminated.
 
 There is a tool called <a href="https://github.com/lucasg/Dependencies/releases" target="_blank" rel="noopener noreferrer">Dependencies</a> that is a dependency diagnosis tool. I did the following:
 
@@ -85,14 +85,14 @@ There is a tool called <a href="https://github.com/lucasg/Dependencies/releases"
 
 #### Media Foundation
 
-<center>
+<div class="overflow">
   <img src={mf.src} width="200" style={{ paddingBottom: "1rem", paddingTop: "1rem" }} />
-</center>
+</div>
 
 These are foundational Windows Media Foundation DLLs and so these were most likely what was causing the crash. In order to acquire these we repeat the same process we did to retrieve `ResampleDmo.dll`. I went ahead and retrieved all of these: `MFPlat.dll`, `MF.dll`, `MFReadWrite.dll`, `mfcore.dll`, and `mfplay.dll`. After finding them and moving them into `C:\Windows\System32` I rebooted.
 
 # Full Moon Again, Crazy How Time Flies
 
-After rebooting, I clicked on the "PLAY" button in Steam again and it worked! During this entire process I was sitting in my room hunched over my keyboard with the lights off so I felt like a gremlin. I was tired so I didn't play the game but I did watch the <a href="https://www.youtube.com/watch?v=xFtdhQoOMH0" target="_blank" rel="noopener noreferrer">Persona 3 Reload Opening Movie</a> all the way through.
+After rebooting, I clicked on the [PLAY] button in Steam again and it worked! During this entire process I was sitting in my room hunched over my keyboard with the lights off so I felt like a gremlin. I was tired so I didn't play the game but I did watch the <a href="https://www.youtube.com/watch?v=xFtdhQoOMH0" target="_blank" rel="noopener noreferrer">Persona 3 Reload Opening Movie</a> all the way through.
 
 I've only played _Persona 5 Royal_ and some of the original _Shin Megami Tensei: Persona_ at this point. Persona games are not unproblematic unfortunately and there are a handful of things about the games that I _really_ don't like, but I try to ignore the parts that suck and appreciate the parts that are great (such as the music and main story).

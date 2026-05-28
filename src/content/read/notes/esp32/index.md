@@ -231,4 +231,4 @@ This is _internal_ to the chip, distinct from the AMS1117 LDO's ~800 mA total ca
 ### UART Serial Debugging
 ### Brownout Detector -->
 
-[^1]: [ESP32 Series Datasheet](https://documentation.espressif.com/esp32_datasheet_en.pdf)
+[^1]: <a href="https://documentation.espressif.com/esp32_datasheet_en.pdf" target="_blank" rel="noopener noreferrer">ESP32 Series Datasheet</a>

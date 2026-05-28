@@ -1,10 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
-import { formatDate, formatDateTime } from "@utils";
+import { formatDateTime } from "@utils";
 import BreadcrumbsLayout from "@layouts/BreadcrumbsLayout.astro";
 import Entries from "@components/app/Entries.astro";
 import Entry from "@components/app/Entry.astro";
-import Tags from "@components/ui/tags/Tags.astro";
+import Posts from "@components/pages/partials/Posts.astro";
 import MK from "@components/ui/MK.astro";
 
 const undrafted = (entry: { data: { draft?: boolean } }) => (import.meta.env.PROD ? entry.data.draft !== true : true);
@@ -25,37 +25,13 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
       <section id="blog">
         <h1>Blog</h1>
         <p>Posts about anything really. <a href="/read/blog">All posts ⟶</a></p>
-        <Entries bordered>
-          {
-            recentBlog.map((post) => (
-              <Entry variant="post" href={`/read/blog/${post.id}`}>
-                <div class="lhs">
-                  <p>{post.data.title}</p>
-                  <Tags tags={post.data.tags} />
-                </div>
-                <span>{formatDate(post.data.updated)}</span>
-              </Entry>
-            ))
-          }
-        </Entries>
+        <Posts posts={recentBlog} path="blog" />
       </section>
       <!-- Notes -->
       <section id="notes">
         <h1>Notes</h1>
         <p>Notes on different topics. <a href="/read/notes">All notes ⟶</a></p>
-        <Entries bordered>
-          {
-            recentNotes.map((post) => (
-              <Entry variant="post" href={`/read/notes/${post.id}`}>
-                <div class="lhs">
-                  <p>{post.data.title}</p>
-                  <Tags tags={post.data.tags} />
-                </div>
-                <span>{formatDate(post.data.updated)}</span>
-              </Entry>
-            ))
-          }
-        </Entries>
+        <Posts posts={recentNotes} path="notes" />
       </section>
       <!-- Thoughts -->
       <section id="thoughts">
@@ -97,12 +73,5 @@ const recentThoughts = sortBy((await getCollection("readThoughts")).filter(undra
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-
-    .lhs {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 0.5rem;
-    }
   }
 </style>

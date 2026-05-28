@@ -25,3 +25,43 @@ a:hover {
 .mk:hover {
   color: var(--mk);
 }
+
+/* WebKit Scrollbar (Chrome, Safari, Edge) */
+/* Scrollbar Container */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+/* Scrollbar Background */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Scrollbar Corner */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Bar */
+::-webkit-scrollbar-thumb {
+  background: var(--ink-300);
+  border-radius: 6px;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Bar Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-400);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Standard Scrollbar (Firefox Fallback Only) */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink-300) transparent;
+  }
+}
