@@ -7,7 +7,8 @@ import Entry from "@components/app/Entry.astro";
 import Posts from "@components/pages/partials/Posts.astro";
 import MK from "@components/ui/MK.astro";
 
-const undrafted = (entry: { data: { draft?: boolean } }) => (import.meta.env.PROD ? entry.data.draft !== true : true);
+// const undrafted = (entry: { data: { draft?: boolean } }) => (import.meta.env.PROD ? entry.data.draft !== true : true);
+const undrafted = (entry: { data: { draft?: boolean } }) => entry.data.draft !== true;
 
 const sortBy = <T extends { data: Record<string, any> }>(entries: T[], date: "updated" | "created") =>
   [...entries].sort((a, b) => b.data[date].valueOf() - a.data[date].valueOf());

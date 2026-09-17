@@ -1,5 +1,5 @@
 ---
-draft: false
+draft: true
 title: Parallel Circuit
 created: 2026-04-12T00:00:00
 updated: 2026-04-12T00:00:00
