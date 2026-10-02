@@ -4,18 +4,18 @@ import Tag from "@components/ui/tags/Tag.astro";
 
 interface Props {
   id: string;
-  name: string;
+  title: string;
   description: string;
   image?: ImageMetadata;
   repo?: string;
   tags: string[];
 }
 
-const { id, name, description, image, repo, tags } = Astro.props;
+const { id, title, description, image, repo, tags } = Astro.props;
 ---
 
 <div class="project">
-  <h2 class="name"><a href={`/exec/${id}`}>{name}</a></h2>
+  <h2 class="title"><a href={`/exec/${id}`}>{title}</a></h2>
 
   {
     image && (
@@ -45,7 +45,7 @@ const { id, name, description, image, repo, tags } = Astro.props;
     height: 100%;
   }
 
-  .name {
+  .title {
     a:hover {
       text-decoration: underline;
     }

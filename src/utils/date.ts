@@ -27,7 +27,7 @@ export const formatDateTime = (d: Date, tz: string) =>
     timeZone: "UTC",
   })} ${getOffsetLabel(d, tz)}`;
 
-export function groupByYear<T>(items: T[], getDate: (item: T) => Date, getTZ: (item: T) => string): Record<number, T[]> {
+export function groupByYear<T>(items: T[], getDate: (item: T) => Date, getTZ?: (item: T) => string): Record<number, T[]> {
   const grouped = items.reduce<Record<number, T[]>>((acc, item) => {
     const year = parseAsUTC(getDate(item)).getUTCFullYear();
     (acc[year] ??= []).push(item);
@@ -40,6 +40,3 @@ export function groupByYear<T>(items: T[], getDate: (item: T) => Date, getTZ: (i
 
   return grouped;
 }
-
-export const truncateTags = (tags: string[], max: number): string[] =>
-  tags.length > max ? [...tags.slice(0, max), `+${tags.length - max}`] : tags;

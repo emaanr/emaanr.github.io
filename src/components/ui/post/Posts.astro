@@ -1,0 +1,33 @@
+---
+import Entries from "@components/ui/entry/Entries.astro";
+import EntriesGroup from "@components/ui/entry/EntriesGroup.astro";
+import Post from "@components/ui/post/Post.astro";
+import type { Standalone, Group } from "@utils/group.ts";
+import type { CollectionEntry } from "astro:content";
+
+type Post = CollectionEntry<"readBlog"> | CollectionEntry<"readNotes">;
+
+interface Props {
+  posts: (Standalone<Post> | Group<Post>)[];
+  path: "blog" | "notes";
+  open?: boolean;
+}
+
+const { posts, path, open = false } = Astro.props;
+---
+
+<Entries bordered>
+  {
+    posts.map((post) =>
+      post.type === "group" ? (
+        <EntriesGroup group={post.group} updated={post.updated} open={open}>
+          {post.groupies.map((groupie) => (
+            <Post post={groupie} path={path} />
+          ))}
+        </EntriesGroup>
+      ) : (
+        <Post post={post.entry} path={path} />
+      ),
+    )
+  }
+</Entries>

@@ -1,12 +1,13 @@
 ---
 interface Props {
   currentCrumb?: string;
+  groupCrumb?: string;
 }
 
-const { currentCrumb } = Astro.props;
+const { currentCrumb, groupCrumb } = Astro.props;
 const segments = Astro.url.pathname.split("/").filter(Boolean);
 
-const crumbs = segments.map((seg, i) => {
+const crumbs: { href?: string; crumb: string; last: boolean }[] = segments.map((seg, i) => {
   const href = "/" + segments.slice(0, i + 1).join("/");
   const last = i === segments.length - 1;
   const crumb =
@@ -18,6 +19,8 @@ const crumbs = segments.map((seg, i) => {
           .join(" ");
   return { href, crumb, last };
 });
+
+if (groupCrumb) crumbs.splice(-1, 0, { crumb: groupCrumb, last: false });
 ---
 
 <nav id="breadcrumbs">
@@ -27,7 +30,7 @@ const crumbs = segments.map((seg, i) => {
       crumbs.map(({ href, crumb, last }) => (
         <li>
           <span class="muted">/</span>
-          {last ? <span class="muted">{crumb}</span> : <a href={href}>{crumb}</a>}
+          {last || !href ? <span class="muted">{crumb}</span> : <a href={href}>{crumb}</a>}
         </li>
       ))
     }

@@ -1,0 +1,23 @@
+---
+import { formatDate } from "@utils/date";
+import Entry from "@components/ui/entry/Entry.astro";
+import Entries from "@components/ui/entry/Entries.astro";
+
+interface Props {
+  group: string;
+  updated: Date;
+  open?: boolean;
+}
+
+const { group, updated, open = false } = Astro.props;
+---
+
+<details class="entries_group" open={open}>
+  <Entry variant="group">
+    <p>{group}</p>
+    <span>{formatDate(updated)}</span>
+  </Entry>
+  <Entries>
+    <slot />
+  </Entries>
+</details>

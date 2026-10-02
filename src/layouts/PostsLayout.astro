@@ -1,6 +1,7 @@
 ---
-import { groupByYear } from "@utils";
-import Posts from "@components/pages/partials/Posts.astro";
+import { groupByYear } from "@utils/date";
+import { groupEntries } from "@utils/group";
+import Posts from "@components/ui/post/Posts.astro";
 import type { CollectionEntry } from "astro:content";
 
 type Post = CollectionEntry<"readBlog"> | CollectionEntry<"readNotes">;
@@ -15,11 +16,7 @@ const { posts, path } = Astro.props;
 // Filter Drafts in Production
 const undrafted = (post: Post) => (import.meta.env.PROD ? post.data.draft !== true : true);
 
-const grouped = groupByYear(
-  posts.filter(undrafted),
-  (post) => post.data.updated,
-  (post) => post.data.tz,
-);
+const grouped = groupByYear(groupEntries(posts.filter(undrafted)), (e) => e.updated);
 
 const years = Object.keys(grouped)
   .map(Number)

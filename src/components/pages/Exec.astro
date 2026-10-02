@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Entry from "@components/app/Entry.astro";
+import Entry from "@components/ui/entry/Entry.astro";
 import Project from "@components/ui/Project.astro";
 
 const projects = await getCollection("execProjects", ({ data }) => !data.draft);
@@ -14,7 +14,7 @@ const sorted = projects.sort((a, b) => b.data.updated.getTime() - a.data.updated
         <Entry variant="exec">
           <Project
             id={project.id}
-            name={project.data.name}
+            title={project.data.title}
             description={project.data.description}
             image={project.data.image}
             repo={project.data.repo}
