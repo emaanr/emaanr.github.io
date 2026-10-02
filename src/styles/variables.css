@@ -53,6 +53,14 @@
 
   --main-padding: 1rem;
 
+  --entry-accent-width: 4px;
+  --entry-accent-growth: 4px;
+  --entry-accent-hover: calc(var(--entry-accent-width) + var(--entry-accent-growth));
+  
+  --entry-group-offset: calc(var(--entry-accent-width) + calc(2 * 1rem));
+  --entry-group-accent: var(--entry-accent-hover);
+  --entry-group-accent-hover: calc(2 * var(--entry-group-accent));
+
   /* ===================== */
   /* Z-Index Layers        */
   /* ===================== */

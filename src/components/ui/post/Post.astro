@@ -1,41 +1,33 @@
 ---
-import { formatDate, truncateTags } from "@utils";
-import Entries from "@components/app/Entries.astro";
-import Entry from "@components/app/Entry.astro";
+import { formatDate } from "@utils/date.ts";
+import { truncateTags } from "@utils/tags.ts";
+import Entry from "@components/ui/entry/Entry.astro";
 import Tags from "@components/ui/tags/Tags.astro";
 import type { CollectionEntry } from "astro:content";
 
-type Post = CollectionEntry<"readBlog"> | CollectionEntry<"readNotes">;
-
 interface Props {
-  posts: Post[];
+  post: CollectionEntry<"readBlog"> | CollectionEntry<"readNotes">;
   path: "blog" | "notes";
 }
 
-const { posts, path } = Astro.props;
+const { post, path } = Astro.props;
 ---
 
-<Entries bordered>
-  {
-    posts.map((post) => (
-      <Entry variant="post" href={`/read/${path}/${post.id}`}>
-        <div class="lhs">
-          <p>{post.data.title}</p>
-          <div class="lg">
-            <Tags tags={truncateTags(post.data.tags, 6)} />
-          </div>
-          <div class="md">
-            <Tags tags={truncateTags(post.data.tags, 3)} />
-          </div>
-          <div class="sm">
-            <Tags tags={truncateTags(post.data.tags, 2)} />
-          </div>
-        </div>
-        <span>{formatDate(post.data.updated)}</span>
-      </Entry>
-    ))
-  }
-</Entries>
+<Entry variant="post" href={`/read/${path}/${post.id}`}>
+  <div class="lhs">
+    <p>{post.data.title}</p>
+    <div class="lg">
+      <Tags tags={truncateTags(post.data.tags, 6)} />
+    </div>
+    <div class="md">
+      <Tags tags={truncateTags(post.data.tags, 3)} />
+    </div>
+    <div class="sm">
+      <Tags tags={truncateTags(post.data.tags, 2)} />
+    </div>
+  </div>
+  <span>{formatDate(post.data.updated)}</span>
+</Entry>
 
 <style>
   .lhs {

@@ -12,12 +12,13 @@ interface Props {
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
-const currentCrumb = post.data.title ?? post.data.name;
+const currentCrumb = post.data.title;
+const groupCrumb = "group" in post.data ? post.data.group : undefined;
 ---
 
 <Layout>
   <article id="post">
-    <BreadcrumbsLayout currentCrumb={currentCrumb}>
+    <BreadcrumbsLayout currentCrumb={currentCrumb} groupCrumb={groupCrumb}>
       <div class="markdown">
         <Metadata updated={post.data.updated} created={post.data.created} tags={post.data.tags} />
         <Content />

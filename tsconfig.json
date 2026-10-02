@@ -8,7 +8,7 @@
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"],
       "@images/*": ["./src/images/*"],
-      "@utils": ["./src/utils.ts"]
+      "@utils/*": ["./src/utils/*"]
     }
   },
 }

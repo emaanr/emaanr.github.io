@@ -2,8 +2,6 @@ import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 
-const tz = z.enum(["America/New_York"]);
-
 const tags = z.enum([
   // Web
   'Web',
@@ -28,11 +26,15 @@ const tags = z.enum([
   'Gaming'
 ])
 
+const tz = z.enum([
+  'America/New_York'
+])
+
 const execProjects = defineCollection({
   loader: glob({ base: './src/content/exec', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }) => z.object({
     draft: z.boolean().default(false),
-    name: z.string(),
+    title: z.string(),
     description: z.string(),
     image: image().optional(),
     repo: z.string().url().optional(),
@@ -63,8 +65,10 @@ const readNotes = defineCollection({
     created: z.coerce.date(),
     updated: z.coerce.date(),
     tags: z.array(tags).default([]),
-    tz
-  })
+    tz,
+    group: z.string().optional(),
+    order: z.number().optional()
+  }).refine((data) => (data.group === undefined) === (data.order === undefined))
 })
 
 const readThoughts = defineCollection({
