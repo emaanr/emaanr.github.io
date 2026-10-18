@@ -76,6 +76,7 @@ const readThoughts = defineCollection({
   schema: z.object({
     draft: z.boolean().default(false),
     created: z.coerce.date(),
+    updated: z.coerce.date().optional(),
     tz
   })
 })
