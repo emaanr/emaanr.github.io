@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: Series Circuit
 created: 2026-04-12T00:00:00
 updated: 2026-04-12T00:00:00
@@ -9,4 +9,4 @@ tz: "America/New_York"
 
 # Series Circuit
 
-Notes on this coming soon..
+Notes on this coming soon...Wanting to review my electronics in general.
