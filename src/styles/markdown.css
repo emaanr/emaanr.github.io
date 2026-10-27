@@ -123,6 +123,28 @@
   /* sup {} */
   /* sub {} */
 
+  /* Accordion */
+  details {
+    padding: 1rem 0;
+  }
+  summary {
+    cursor: default;
+    list-style: none;
+    pointer-events: none;
+  }
+  summary::before {
+    content: "🧲";
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.2s;
+  }
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
   /* Astro / Markdown Extras */
   .astro-code {
     margin: 0.25rem 0;

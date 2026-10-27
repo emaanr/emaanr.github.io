@@ -14,8 +14,10 @@ const tags = z.enum([
   'FreeRTOS',
   'Electronics',
   // OS
-  'C',
   'Linux',
+  // Languages
+  'C',
+  'Rust',
   // Mobile
   'Mobile',
   'Android',
