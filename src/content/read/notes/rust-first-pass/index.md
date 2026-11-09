@@ -1,9 +1,9 @@
 ---
 draft: false
-title: "Rust: First Pass"
+title: 'Rust: First Pass'
 created: 2026-10-26T00:00:00
-updated: 2026-10-26T00:00:00
-tags: [Rust]
+updated: 2026-10-27T00:00:00
+tags: [Programming Languages, Rust]
 tz: "America/New_York"
 ---
 
@@ -18,7 +18,7 @@ tz: "America/New_York"
 >
 > `CLog. 2026-10-26`
 >
-> - Went through sections "3.1 Variables and Mutability" and "3.2 Data Types".
+> - Went through sections "<a href="https://rust-book.cs.brown.edu/ch03-01-variables-and-mutability.html" target="_blank" rel="noopener noreferrer">3.1. Variables and Mutability</a>" and "<a href="https://rust-book.cs.brown.edu/ch03-02-data-types.html" target="_blank" rel="noopener noreferrer">3.2. Data Types</a>".
 >
 > </details>
 >
@@ -172,7 +172,7 @@ tz: "America/New_York"
 
 ## Conversation
 
-> Concepts that were introduced by talking to smart friends.
+> Concepts introduced through conversation to also return to.
 
 - A tuple in Rust is a product type. Consider a tuple of type `(u8, u8, u8)`. Each of those `u8`'s can represent a value from `0` to `255`, therefore, the set of unique values that can be represented is `256` x `256` x `256`, or `256` to the power of `3`.
   - Came up when asking about the Unit Type, still need to explore it more but it represents `1`, think of it as () being to the power of `0`. There is also the Never Type, represented by `!`, i.e. `fn func() -> !`. The never type seems to be used by compiler for optimizations among other things.

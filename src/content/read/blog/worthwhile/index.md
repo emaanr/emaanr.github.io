@@ -13,7 +13,7 @@ tz: "America/New_York"
 
 1. Hanging out with friends, sharing a meal, and joking around (generally, but especially) on a really hot day (including complaints about how absurdly hot it is).
 2. Eating really tasty food after working out.
-3. Working on a daunting problem for a while and feeling like you understand it more every day that you return to tackle it.
+3. Working on a daunting problem for a while and feeling that you understand it more every day that you return to it.
 4. More generally, the feeling of growth and improvement.
 5. Climbing.
 6. Pulling off crazy plays in video games (in any context really, intentional or unintentional).
@@ -34,9 +34,9 @@ tz: "America/New_York"
 21. The way my head feels after a shower (alert and refreshed).
 22. Sunsets and sunrises (seriously, kinda crazy we get one of each everyday)!
 23. Hours of the day when the world looks _different_ (personally, blue hour enjoyer).
-24. Cold floors on bare feet, early morning after it snows.
+24. Walking on cold floors with bare feet, especially early morning after it snows.
 25. The quiet when it snows.
-26. Shoveling snow and then drinking hot cocoa.
+26. Shoveling snow followed by warm consumables.
 27. Brief moments where it feels like you may be the only person on earth.
 28. Silence.
 29. Hot showers.

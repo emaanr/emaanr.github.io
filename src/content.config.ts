@@ -3,6 +3,8 @@ import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 
 const tags = z.enum([
+  // Computers
+  'Computers',
   // Web
   'Web',
   'JavaScript',
@@ -15,7 +17,8 @@ const tags = z.enum([
   'Electronics',
   // OS
   'Linux',
-  // Languages
+  // Programming Languages
+  'Programming Languages',
   'C',
   'Rust',
   // Mobile
@@ -39,7 +42,7 @@ const execProjects = defineCollection({
     title: z.string(),
     description: z.string(),
     image: image().optional(),
-    repo: z.string().url().optional(),
+    repo: z.url().optional(),
     created: z.coerce.date(),
     updated: z.coerce.date(),
     tags: z.array(tags).default([]),
